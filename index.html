@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Gate Report Generator</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f2f5f9;
+            color: #222;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: #0d47a1;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            margin-top: 15px;
+        }
+
+        label:first-child {
+            margin-top: 0;
+        }
+
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .generate-btn {
+            background: #0d47a1;
+            color: white;
+        }
+
+        .generate-btn:hover {
+            background: #083579;
+        }
+
+        .copy-btn {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .copy-btn:hover {
+            background: #1b5e20;
+        }
+
+        .report-box {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 18px;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            min-height: 200px;
+        }
+
+        .section-title {
+            color: #0d47a1;
+            margin-top: 0;
+        }
+
+        .success-message {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px auto;
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>E-Gate Report Generator</h1>
+        <p>Automatic Incident Report Tool</p>
+    </div>
+
+    <div class="card">
+
+        <label for="area">Area</label>
+        <select id="area">
+            <option value="">Select Area</option>
+            <option>T3 Arrival</option>
+            <option>T3 Arrival Phase 1</option>
+            <option>T3 Arrival Phase 2</option>
+            <option>T3 Main Departure</option>
+            <option>T3 OFW Departure</option>
+            <option>T1</option>
+            <option>Other</option>
+        </select>
+
+        <label for="gate">Gate</label>
+        <select id="gate">
+            <option value="">Select Gate</option>
+            <option>G01</option>
+            <option>G02</option>
+            <option>G03</option>
+            <option>G04</option>
+            <option>G05</option>
+            <option>G06</option>
+            <option>G07</option>
+            <option>G08</option>
+            <option>G09</option>
+            <option>G10</option>
+            <option>G11</option>
+            <option>G12</option>
+            <option>G13</option>
+            <option>G14</option>
+            <option>G15</option>
+            <option>G16</option>
+            <option>G17</option>
+            <option>G18</option>
+        </select>
+
+        <label for="issue">Issue</label>
+        <select id="issue">
+            <option value="">Select Issue</option>
+            <option>Passport Scanner</option>
+            <option>Sensor Obstruction</option>
+            <option>System Hang</option>
+            <option>Application Crash</option>
+            <option>Defective Sensor</option>
+            <option>Intermittent Network</option>
+            <option>No Power</option>
+            <option>Door Module</option>
+        </select>
+
+        <label for="details">Additional Details</label>
+        <textarea id="details" placeholder="Optional: Add additional information here..."></textarea>
+
+        <button class="generate-btn" onclick="generateReport()">
+            Generate Report
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <h2 class="section-title">Generated Report</h2>
+
+        <div id="report" class="report-box">
+            Your generated report will appear here.
+        </div>
+
+        <button class="copy-btn" onclick="copyReport()">
+            Copy Report
+        </button>
+
+        <div id="successMessage" class="success-message">
+            Report copied successfully!
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const templates = {
+
+    "Passport Scanner": {
+
+        action: `Upon arrival at the reported gate, the team conducted an initial inspection of the e-Gate. Software checking and system health verification were performed to identify any possible system-related issues. A visual inspection of the gate components, including the passport scanner and its surrounding area, was also conducted.
+
+The passport scanner was checked and tested accordingly. A test transaction was then conducted using a passenger to verify the proper operation of the passport scanning process and the overall functionality of the e-Gate.`,
+
+        rootCause: `The passenger's passport was not properly scanned by the passport scanner, resulting in an unsuccessful transaction.`,
+
+        resolution: `The passport scanner was checked and tested. A test transaction was conducted to verify its functionality. The e-Gate was found operational after testing.`,
+
+        recommendation: `Continue monitoring the passport scanner and ensure proper passport positioning during the scanning process.`
+    },
+
+
+    "Sensor Obstruction": {
+
+        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. A visual inspection of the e-Gate and its components was also performed to identify any possible obstruction affecting the operation of the gate.
+
+The affected sensor area was inspected and a piece of paper was found obstructing the sensor. The obstruction was removed, and the sensor was checked and tested accordingly. A test transaction was then conducted using a passenger to verify the proper operation of the e-Gate.`,
+
+        rootCause: `A piece of paper was found obstructing the sensor, affecting sensor detection and the normal operation of the e-Gate.`,
+
+        resolution: `The piece of paper obstructing the sensor was removed. The affected sensor was checked and tested, followed by a passenger test transaction. The e-Gate was found operational after testing.`,
+
+        recommendation: `Continue monitoring the sensor area and ensure that the sensor remains free from any obstruction.`
+    },
+
+
+    "System Hang": {
+
+        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. The system status and application functionality were checked to identify any possible software-related issues.
+
+The e-Gate system was checked and monitored for any signs of system hang. The application was restarted and system functionality was verified. A test transaction was then conducted using a passenger to confirm the proper operation of the e-Gate.`,
+
+        rootCause: `The e-Gate system experienced a temporary system hang, affecting the normal operation of the gate.`,
+
+        resolution: `The affected application was restarted and system functionality was restored. A passenger test transaction was conducted and the e-Gate was found operational.`,
+
+        recommendation: `Continue monitoring the e-Gate system and application performance for any recurrence of the issue.`
+    },
+
+
+    "Application Crash": {
+
+        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. The application status was checked to identify any possible software-related issue.
+
+The affected e-Gate application was found not responding and was checked accordingly. The application was closed and restarted to restore normal operation. A test transaction was then conducted using a passenger to verify the proper operation of the e-Gate.`,
+
+        rootCause: `The e-Gate application unexpectedly crashed, causing the application to stop responding and affecting the normal operation of the gate.`,
+
+        resolution: `The affected application was restarted and its functionality was verified. A passenger test transaction was conducted and the e-Gate was found operational.`,
+
+        recommendation: `Continue monitoring the application and system performance for any recurrence of the issue.`
+    },
+
+
+    "Defective Sensor": {
+
+        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. A visual inspection of the e-Gate sensors and related components was also performed.
+
+The affected sensor was checked and tested and was found to be defective. The sensor condition and response were verified accordingly. A test transaction was then conducted using a passenger to confirm the operation of the e-Gate.`,
+
+        rootCause: `The affected sensor was found to be defective, resulting in improper sensor detection and affecting the normal operation of the e-Gate.`,
+
+        resolution: `The defective sensor was checked and tested. The sensor was replaced/repaired as necessary and its functionality was verified. A passenger test transaction was conducted to confirm proper operation of the e-Gate.`,
+
+        recommendation: `Continue monitoring the sensor performance and conduct preventive inspection of the affected components.`
+    },
+
+
+    "Intermittent Network": {
+
+        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. The network connection and system communication were checked to identify any possible connectivity issue.
+
+The network connection of the e-Gate was checked and monitored. Connectivity testing was performed and the system communication was verified. A test transaction was then conducted using a passenger to confirm the proper operation of the e-Gate.`,
+
+        rootCause: `An intermittent network connection was observed, affecting communication between the e-Gate system and the network.`,
+
+        resolution: `The network connection was checked and restored. System communication was verified and a passenger test transaction was conducted. The e-Gate was found operational after testing.`,
+
+        recommendation: `Continue monitoring the network connection and system communication for any recurrence of intermittent connectivity issues.`
+    },
+
+
+    "No Power": {
+
+        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. A visual inspection of the e-Gate power indicators and related components was also performed.
+
+The affected components were checked to identify the source of the power issue. Power connections and related components were inspected and tested accordingly. After the necessary checking, a test transaction was conducted using a passenger to verify the proper operation of the e-Gate.`,
+
+        rootCause: `The affected e-Gate component was found without power, resulting in the failure of the affected component to operate normally.`,
+
+        resolution: `The power connection and affected components were checked and restored as necessary. The system was tested and a passenger test transaction was conducted. The e-Gate was found operational after testing.`,
+
+        recommendation: `Continue monitoring the power supply and related connections to prevent recurrence of the issue.`
+    },
+
+
+    "Door Module": {
+
+        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. A visual inspection of the door module and related e-Gate components was also performed.
+
+The affected door module was checked and tested to verify its operation. The door mechanism and related sensors were inspected accordingly. A test transaction was then conducted using a passenger to verify the proper operation of the e-Gate.`,
+
+        rootCause: `The door module experienced an operational issue, affecting the normal opening and closing operation of the e-Gate.`,
+
+        resolution: `The door module and related components were checked and tested. The necessary adjustment/checking was performed and the door operation was verified. A passenger test transaction was conducted and the e-Gate was found operational.`,
+
+        recommendation: `Continue monitoring the door module and related components for any recurrence of the issue.`
+    }
+
+};
+
+
+function generateReport() {
+
+    const area = document.getElementById("area").value;
+    const gate = document.getElementById("gate").value;
+    const issue = document.getElementById("issue").value;
+    const details = document.getElementById("details").value.trim();
+
+    const reportBox = document.getElementById("report");
+
+    if (!area || !gate || !issue) {
+
+        reportBox.textContent =
+            "Please select Area, Gate, and Issue before generating the report.";
+
+        return;
+    }
+
+
+    const template = templates[issue];
+
+    if (!template) {
+
+        reportBox.textContent =
+            "No report template available for the selected issue.";
+
+        return;
+    }
+
+
+    let report = "";
+
+    report += `E-GATE INCIDENT REPORT\n`;
+    report += `======================\n\n`;
+
+    report += `Area: ${area}\n`;
+    report += `Gate: ${gate}\n`;
+    report += `Issue: ${issue}\n\n`;
+
+    report += `ACTION TAKEN\n`;
+    report += `------------\n`;
+    report += `${template.action}\n\n`;
+
+    report += `ROOT CAUSE\n`;
+    report += `----------\n`;
+    report += `${template.rootCause}\n\n`;
+
+    report += `RESOLUTION\n`;
+    report += `----------\n`;
+    report += `${template.resolution}\n\n`;
+
+    report += `RECOMMENDATION\n`;
+    report += `--------------\n`;
+    report += `${template.recommendation}\n`;
+
+
+    if (details) {
+
+        report += `\nADDITIONAL DETAILS\n`;
+        report += `------------------\n`;
+        report += `${details}\n`;
+    }
+
+
+    reportBox.textContent = report;
+}
+
+
+function copyReport() {
+
+    const report = document.getElementById("report").textContent;
+    const successMessage = document.getElementById("successMessage");
+
+    if (
+        !report ||
+        report === "Your generated report will appear here."
+    ) {
+
+        alert("Please generate a report first.");
+        return;
+    }
+
+
+    navigator.clipboard.writeText(report)
+        .then(() => {
+
+            successMessage.style.display = "block";
+
+            setTimeout(() => {
+                successMessage.style.display = "none";
+            }, 2000);
+
+        })
+        .catch(() => {
+
+            alert("Unable to copy the report automatically. Please copy it manually.");
+
+        });
+}
+
+</script>
+
+</body>
+</html>
