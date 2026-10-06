@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d47a1">
+
     <title>E-Gate Report Generator</title>
 
     <style>
@@ -13,63 +15,87 @@
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
-            background: #f2f5f9;
+            background: #eef2f7;
             color: #222;
         }
 
-        .container {
-            max-width: 850px;
-            margin: 30px auto;
-            padding: 20px;
+        .app {
+            max-width: 700px;
+            margin: auto;
+            min-height: 100vh;
+            background: #f8fafc;
         }
+
+        /* HEADER */
 
         .header {
             background: #0d47a1;
             color: white;
-            padding: 25px;
-            border-radius: 12px;
+            padding: 25px 20px;
             text-align: center;
-            margin-bottom: 20px;
+            border-radius: 0 0 22px 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .header h1 {
-            margin: 0 0 8px;
-            font-size: 28px;
+            margin: 0;
+            font-size: 25px;
         }
 
         .header p {
-            margin: 0;
-            font-size: 14px;
+            margin: 7px 0 0;
+            font-size: 13px;
             opacity: 0.9;
+        }
+
+        /* CONTENT */
+
+        .content {
+            padding: 18px;
         }
 
         .card {
             background: white;
-            padding: 22px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            padding: 20px;
+            margin-bottom: 18px;
+            border-radius: 16px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 19px;
+            color: #0d47a1;
         }
 
         label {
             display: block;
             font-weight: bold;
-            margin-bottom: 7px;
             margin-top: 15px;
+            margin-bottom: 7px;
+            font-size: 14px;
         }
 
         label:first-child {
             margin-top: 0;
         }
 
+        input,
         select,
         textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 13px;
+            border: 1px solid #ccd3dc;
+            border-radius: 10px;
             font-size: 15px;
             background: white;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #0d47a1;
         }
 
         textarea {
@@ -77,15 +103,30 @@
             resize: vertical;
         }
 
+        /* DATE TIME */
+
+        .datetime {
+            background: #eef4ff;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 5px;
+            color: #0d47a1;
+            font-weight: bold;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* BUTTONS */
+
         button {
             width: 100%;
-            padding: 14px;
-            margin-top: 18px;
             border: none;
-            border-radius: 8px;
+            padding: 14px;
+            border-radius: 10px;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            margin-top: 15px;
         }
 
         .generate-btn {
@@ -106,19 +147,17 @@
             background: #1b5e20;
         }
 
+        /* REPORT */
+
         .report-box {
             background: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 18px;
+            border: 1px solid #d5dbe2;
+            border-radius: 10px;
+            padding: 16px;
             white-space: pre-wrap;
             line-height: 1.6;
-            min-height: 200px;
-        }
-
-        .section-title {
-            color: #0d47a1;
-            margin-top: 0;
+            min-height: 220px;
+            font-size: 14px;
         }
 
         .success-message {
@@ -127,110 +166,287 @@
             padding: 10px;
             background: #e8f5e9;
             color: #2e7d32;
-            border-radius: 6px;
+            border-radius: 8px;
             text-align: center;
             font-weight: bold;
         }
 
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* MOBILE */
+
         @media (max-width: 600px) {
-            .container {
-                margin: 10px auto;
-                padding: 10px;
+
+            body {
+                background: #f8fafc;
+            }
+
+            .app {
+                width: 100%;
+            }
+
+            .header {
+                padding: 22px 15px;
+                border-radius: 0 0 20px 20px;
             }
 
             .header h1 {
                 font-size: 22px;
             }
 
+            .content {
+                padding: 12px;
+            }
+
             .card {
-                padding: 16px;
+                padding: 17px;
+                border-radius: 14px;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 16px;
+            }
+
+            button {
+                padding: 15px;
+                font-size: 16px;
             }
         }
+
     </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
     <div class="header">
-        <h1>E-Gate Report Generator</h1>
+
+        <h1>🛂 E-Gate Report Generator</h1>
+
         <p>Automatic Incident Report Tool</p>
-    </div>
-
-    <div class="card">
-
-        <label for="area">Area</label>
-        <select id="area">
-            <option value="">Select Area</option>
-            <option>T3 Arrival</option>
-            <option>T3 Arrival Phase 1</option>
-            <option>T3 Arrival Phase 2</option>
-            <option>T3 Main Departure</option>
-            <option>T3 OFW Departure</option>
-            <option>T1</option>
-            <option>Other</option>
-        </select>
-
-        <label for="gate">Gate</label>
-        <select id="gate">
-            <option value="">Select Gate</option>
-            <option>G01</option>
-            <option>G02</option>
-            <option>G03</option>
-            <option>G04</option>
-            <option>G05</option>
-            <option>G06</option>
-            <option>G07</option>
-            <option>G08</option>
-            <option>G09</option>
-            <option>G10</option>
-            <option>G11</option>
-            <option>G12</option>
-            <option>G13</option>
-            <option>G14</option>
-            <option>G15</option>
-            <option>G16</option>
-            <option>G17</option>
-            <option>G18</option>
-        </select>
-
-        <label for="issue">Issue</label>
-        <select id="issue">
-            <option value="">Select Issue</option>
-            <option>Passport Scanner</option>
-            <option>Sensor Obstruction</option>
-            <option>System Hang</option>
-            <option>Application Crash</option>
-            <option>Defective Sensor</option>
-            <option>Intermittent Network</option>
-            <option>No Power</option>
-            <option>Door Module</option>
-        </select>
-
-        <label for="details">Additional Details</label>
-        <textarea id="details" placeholder="Optional: Add additional information here..."></textarea>
-
-        <button class="generate-btn" onclick="generateReport()">
-            Generate Report
-        </button>
 
     </div>
 
-    <div class="card">
 
-        <h2 class="section-title">Generated Report</h2>
+    <div class="content">
 
-        <div id="report" class="report-box">
-            Your generated report will appear here.
+        <!-- REPORT INFORMATION -->
+
+        <div class="card">
+
+            <h2>📋 Report Information</h2>
+
+            <label for="technician">
+                Technician Name / ID
+            </label>
+
+            <input
+                type="text"
+                id="technician"
+                placeholder="Enter technician name or ID"
+                value="A007"
+            >
+
+
+            <label>
+                Date & Time
+            </label>
+
+            <div
+                id="datetime"
+                class="datetime">
+                Loading...
+            </div>
+
+
+            <label for="area">
+                Area
+            </label>
+
+            <select id="area">
+
+                <option value="">
+                    Select Area
+                </option>
+
+                <option>
+                    T3 Arrival
+                </option>
+
+                <option>
+                    T3 Arrival Phase 1
+                </option>
+
+                <option>
+                    T3 Arrival Phase 2
+                </option>
+
+                <option>
+                    T3 Main Departure
+                </option>
+
+                <option>
+                    T3 OFW Departure
+                </option>
+
+                <option>
+                    T1
+                </option>
+
+                <option>
+                    Other
+                </option>
+
+            </select>
+
+
+            <label for="gate">
+                Gate
+            </label>
+
+            <select id="gate">
+
+                <option value="">
+                    Select Gate
+                </option>
+
+                <option>G01</option>
+                <option>G02</option>
+                <option>G03</option>
+                <option>G04</option>
+                <option>G05</option>
+                <option>G06</option>
+                <option>G07</option>
+                <option>G08</option>
+                <option>G09</option>
+                <option>G10</option>
+                <option>G11</option>
+                <option>G12</option>
+                <option>G13</option>
+                <option>G14</option>
+                <option>G15</option>
+                <option>G16</option>
+                <option>G17</option>
+                <option>G18</option>
+
+            </select>
+
+
+            <label for="issue">
+                Issue
+            </label>
+
+            <select id="issue">
+
+                <option value="">
+                    Select Issue
+                </option>
+
+                <option>
+                    Passport Scanner
+                </option>
+
+                <option>
+                    Sensor Obstruction
+                </option>
+
+                <option>
+                    System Hang
+                </option>
+
+                <option>
+                    Application Crash
+                </option>
+
+                <option>
+                    Defective Sensor
+                </option>
+
+                <option>
+                    Intermittent Network
+                </option>
+
+                <option>
+                    No Power
+                </option>
+
+                <option>
+                    Door Module
+                </option>
+
+            </select>
+
+
+            <label for="details">
+                Additional Details
+            </label>
+
+            <textarea
+                id="details"
+                placeholder="Optional additional information...">
+            </textarea>
+
+
+            <button
+                class="generate-btn"
+                onclick="generateReport()">
+
+                ⚡ Generate Report
+
+            </button>
+
         </div>
 
-        <button class="copy-btn" onclick="copyReport()">
-            Copy Report
-        </button>
 
-        <div id="successMessage" class="success-message">
-            Report copied successfully!
+        <!-- GENERATED REPORT -->
+
+        <div class="card">
+
+            <h2>📄 Generated Report</h2>
+
+            <div
+                id="report"
+                class="report-box">
+
+                Your generated report will appear here.
+
+            </div>
+
+
+            <button
+                class="copy-btn"
+                onclick="copyReport()">
+
+                📋 Copy Report
+
+            </button>
+
+
+            <div
+                id="successMessage"
+                class="success-message">
+
+                Report copied successfully!
+
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+
+            E-Gate Report Generator
+
         </div>
 
     </div>
@@ -240,7 +456,14 @@
 
 <script>
 
+
+/* ==============================
+   REPORT TEMPLATES
+================================ */
+
+
 const templates = {
+
 
     "Passport Scanner": {
 
@@ -253,6 +476,7 @@ The passport scanner was checked and tested accordingly. A test transaction was 
         resolution: `The passport scanner was checked and tested. A test transaction was conducted to verify its functionality. The e-Gate was found operational after testing.`,
 
         recommendation: `Continue monitoring the passport scanner and ensure proper passport positioning during the scanning process.`
+
     },
 
 
@@ -267,6 +491,7 @@ The affected sensor area was inspected and a piece of paper was found obstructin
         resolution: `The piece of paper obstructing the sensor was removed. The affected sensor was checked and tested, followed by a passenger test transaction. The e-Gate was found operational after testing.`,
 
         recommendation: `Continue monitoring the sensor area and ensure that the sensor remains free from any obstruction.`
+
     },
 
 
@@ -281,6 +506,7 @@ The e-Gate system was checked and monitored for any signs of system hang. The ap
         resolution: `The affected application was restarted and system functionality was restored. A passenger test transaction was conducted and the e-Gate was found operational.`,
 
         recommendation: `Continue monitoring the e-Gate system and application performance for any recurrence of the issue.`
+
     },
 
 
@@ -295,6 +521,7 @@ The affected e-Gate application was found not responding and was checked accordi
         resolution: `The affected application was restarted and its functionality was verified. A passenger test transaction was conducted and the e-Gate was found operational.`,
 
         recommendation: `Continue monitoring the application and system performance for any recurrence of the issue.`
+
     },
 
 
@@ -309,6 +536,7 @@ The affected sensor was checked and tested and was found to be defective. The se
         resolution: `The defective sensor was checked and tested. The sensor was replaced/repaired as necessary and its functionality was verified. A passenger test transaction was conducted to confirm proper operation of the e-Gate.`,
 
         recommendation: `Continue monitoring the sensor performance and conduct preventive inspection of the affected components.`
+
     },
 
 
@@ -323,6 +551,7 @@ The network connection of the e-Gate was checked and monitored. Connectivity tes
         resolution: `The network connection was checked and restored. System communication was verified and a passenger test transaction was conducted. The e-Gate was found operational after testing.`,
 
         recommendation: `Continue monitoring the network connection and system communication for any recurrence of intermittent connectivity issues.`
+
     },
 
 
@@ -337,6 +566,7 @@ The affected components were checked to identify the source of the power issue. 
         resolution: `The power connection and affected components were checked and restored as necessary. The system was tested and a passenger test transaction was conducted. The e-Gate was found operational after testing.`,
 
         recommendation: `Continue monitoring the power supply and related connections to prevent recurrence of the issue.`
+
     },
 
 
@@ -351,30 +581,81 @@ The affected door module was checked and tested to verify its operation. The doo
         resolution: `The door module and related components were checked and tested. The necessary adjustment/checking was performed and the door operation was verified. A passenger test transaction was conducted and the e-Gate was found operational.`,
 
         recommendation: `Continue monitoring the door module and related components for any recurrence of the issue.`
+
     }
 
 };
 
 
+/* ==============================
+   DATE & TIME
+================================ */
+
+
+function updateDateTime() {
+
+    const now = new Date();
+
+    const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    };
+
+    document.getElementById("datetime").textContent =
+        now.toLocaleString("en-PH", options);
+
+}
+
+
+updateDateTime();
+
+setInterval(updateDateTime, 1000);
+
+
+/* ==============================
+   GENERATE REPORT
+================================ */
+
+
 function generateReport() {
 
-    const area = document.getElementById("area").value;
-    const gate = document.getElementById("gate").value;
-    const issue = document.getElementById("issue").value;
-    const details = document.getElementById("details").value.trim();
+    const technician =
+        document.getElementById("technician").value.trim();
 
-    const reportBox = document.getElementById("report");
+    const area =
+        document.getElementById("area").value;
 
-    if (!area || !gate || !issue) {
+    const gate =
+        document.getElementById("gate").value;
+
+    const issue =
+        document.getElementById("issue").value;
+
+    const details =
+        document.getElementById("details").value.trim();
+
+
+    const reportBox =
+        document.getElementById("report");
+
+
+    if (!technician || !area || !gate || !issue) {
 
         reportBox.textContent =
-            "Please select Area, Gate, and Issue before generating the report.";
+            "Please enter Technician Name/ID and select Area, Gate, and Issue.";
 
         return;
+
     }
 
 
-    const template = templates[issue];
+    const template =
+        templates[issue];
+
 
     if (!template) {
 
@@ -382,29 +663,50 @@ function generateReport() {
             "No report template available for the selected issue.";
 
         return;
+
     }
+
+
+    const reportDate =
+        new Date().toLocaleString(
+            "en-PH",
+            {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            }
+        );
 
 
     let report = "";
 
+
     report += `E-GATE INCIDENT REPORT\n`;
     report += `======================\n\n`;
 
+    report += `Technician: ${technician}\n`;
+    report += `Date & Time: ${reportDate}\n`;
     report += `Area: ${area}\n`;
     report += `Gate: ${gate}\n`;
     report += `Issue: ${issue}\n\n`;
+
 
     report += `ACTION TAKEN\n`;
     report += `------------\n`;
     report += `${template.action}\n\n`;
 
+
     report += `ROOT CAUSE\n`;
     report += `----------\n`;
     report += `${template.rootCause}\n\n`;
 
+
     report += `RESOLUTION\n`;
     report += `----------\n`;
     report += `${template.resolution}\n\n`;
+
 
     report += `RECOMMENDATION\n`;
     report += `--------------\n`;
@@ -416,43 +718,68 @@ function generateReport() {
         report += `\nADDITIONAL DETAILS\n`;
         report += `------------------\n`;
         report += `${details}\n`;
+
     }
 
 
-    reportBox.textContent = report;
+    reportBox.textContent =
+        report;
+
 }
+
+
+/* ==============================
+   COPY REPORT
+================================ */
 
 
 function copyReport() {
 
-    const report = document.getElementById("report").textContent;
-    const successMessage = document.getElementById("successMessage");
+    const report =
+        document.getElementById("report").textContent;
+
+    const successMessage =
+        document.getElementById("successMessage");
+
 
     if (
         !report ||
-        report === "Your generated report will appear here."
+        report ===
+        "Your generated report will appear here."
     ) {
 
         alert("Please generate a report first.");
+
         return;
+
     }
 
 
     navigator.clipboard.writeText(report)
+
         .then(() => {
 
-            successMessage.style.display = "block";
+            successMessage.style.display =
+                "block";
+
 
             setTimeout(() => {
-                successMessage.style.display = "none";
+
+                successMessage.style.display =
+                    "none";
+
             }, 2000);
 
         })
+
         .catch(() => {
 
-            alert("Unable to copy the report automatically. Please copy it manually.");
+            alert(
+                "Unable to copy the report automatically. Please copy it manually."
+            );
 
         });
+
 }
 
 </script>
