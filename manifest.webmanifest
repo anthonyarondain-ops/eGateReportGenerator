@@ -1,0 +1,9 @@
+{
+  "name": "H.A.Z.E. e-Gate Intelligence & Report Generator",
+  "short_name": "H.A.Z.E.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "description": "H.A.Z.E. smart e-Gate troubleshooting, knowledge base, and incident reporting."
+}

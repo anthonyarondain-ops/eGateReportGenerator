@@ -1,788 +1,155 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0d47a1">
-
-    <title>E-Gate Report Generator</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #eef2f7;
-            color: #222;
-        }
-
-        .app {
-            max-width: 700px;
-            margin: auto;
-            min-height: 100vh;
-            background: #f8fafc;
-        }
-
-        /* HEADER */
-
-        .header {
-            background: #0d47a1;
-            color: white;
-            padding: 25px 20px;
-            text-align: center;
-            border-radius: 0 0 22px 22px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .header h1 {
-            margin: 0;
-            font-size: 25px;
-        }
-
-        .header p {
-            margin: 7px 0 0;
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
-        /* CONTENT */
-
-        .content {
-            padding: 18px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 18px;
-            border-radius: 16px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-        }
-
-        .card h2 {
-            margin-top: 0;
-            font-size: 19px;
-            color: #0d47a1;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 7px;
-            font-size: 14px;
-        }
-
-        label:first-child {
-            margin-top: 0;
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #ccd3dc;
-            border-radius: 10px;
-            font-size: 15px;
-            background: white;
-            outline: none;
-        }
-
-        input:focus,
-        select:focus,
-        textarea:focus {
-            border-color: #0d47a1;
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        /* DATE TIME */
-
-        .datetime {
-            background: #eef4ff;
-            border-radius: 10px;
-            padding: 12px;
-            margin-bottom: 5px;
-            color: #0d47a1;
-            font-weight: bold;
-            text-align: center;
-            font-size: 14px;
-        }
-
-        /* BUTTONS */
-
-        button {
-            width: 100%;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        .generate-btn {
-            background: #0d47a1;
-            color: white;
-        }
-
-        .generate-btn:hover {
-            background: #083579;
-        }
-
-        .copy-btn {
-            background: #2e7d32;
-            color: white;
-        }
-
-        .copy-btn:hover {
-            background: #1b5e20;
-        }
-
-        /* REPORT */
-
-        .report-box {
-            background: #f8f9fa;
-            border: 1px solid #d5dbe2;
-            border-radius: 10px;
-            padding: 16px;
-            white-space: pre-wrap;
-            line-height: 1.6;
-            min-height: 220px;
-            font-size: 14px;
-        }
-
-        .success-message {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            background: #e8f5e9;
-            color: #2e7d32;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* FOOTER */
-
-        .footer {
-            text-align: center;
-            padding: 15px;
-            font-size: 12px;
-            color: #777;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 600px) {
-
-            body {
-                background: #f8fafc;
-            }
-
-            .app {
-                width: 100%;
-            }
-
-            .header {
-                padding: 22px 15px;
-                border-radius: 0 0 20px 20px;
-            }
-
-            .header h1 {
-                font-size: 22px;
-            }
-
-            .content {
-                padding: 12px;
-            }
-
-            .card {
-                padding: 17px;
-                border-radius: 14px;
-            }
-
-            input,
-            select,
-            textarea {
-                font-size: 16px;
-            }
-
-            button {
-                padding: 15px;
-                font-size: 16px;
-            }
-        }
-
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>H.A.Z.E. | e-Gate Intelligence & Report Generator</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#07111f;--panel:#0d1b2c;--panel2:#10243a;--line:#203a52;--cyan:#43e5ff;--blue:#278dff;--text:#eaf5ff;--muted:#91a9bf;--warn:#ffca75;--red:#ff7b8a;--green:#69edb5}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#102d48 0,transparent 34%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{padding:24px 16px;border-right:1px solid var(--line);background:#071321eF;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:12px;margin:0 8px 28px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#1b6dba,#46e9ff);display:grid;place-items:center;color:#04111e;font-weight:900;letter-spacing:-2px;box-shadow:0 0 25px #22c8ff36}.brand h1{font-size:22px;letter-spacing:3px;margin:0}.brand small{display:block;color:var(--muted);font-size:11px;letter-spacing:1px}.nav{display:grid;gap:7px}.nav button{border:1px solid transparent;background:transparent;color:var(--muted);padding:12px;border-radius:11px;text-align:left}.nav button.active,.nav button:hover{background:#112a40;border-color:#24516c;color:var(--cyan)}.side-note{position:absolute;bottom:20px;left:18px;right:18px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}.main{padding:28px;max-width:1450px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.eyebrow{color:var(--cyan);text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:700}.top h2{font-size:clamp(24px,3vw,34px);margin:4px 0}.top p{margin:0;color:var(--muted)}.status{border:1px solid #236148;background:#0c2b29;color:var(--green);padding:8px 12px;border-radius:999px;font-size:12px;white-space:nowrap}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}.card{background:linear-gradient(145deg,#0e2032,#0a1726);border:1px solid var(--line);border-radius:17px;padding:20px;min-width:0;box-shadow:0 10px 35px #00000012}.span8{grid-column:span 8}.span4{grid-column:span 4}.span12{grid-column:span 12}.card h3{margin:0 0 5px;font-size:18px}.sub{color:var(--muted);font-size:13px;margin:0 0 16px}.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;color:#b8cce0;font-weight:650}.field input,.field select,.field textarea{width:100%;border:1px solid #29465f;border-radius:10px;padding:11px 12px;background:#071522;color:var(--text);outline:none}.field textarea{min-height:95px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #43e5ff16}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:1px solid #2d617c;border-radius:10px;padding:10px 14px;background:#103149;color:var(--cyan);font-weight:700}.btn.primary{background:linear-gradient(90deg,#176db8,#1a9ac2);border-color:#2caed5;color:white}.btn.secondary{background:#0a1a29;color:#c8d9e8;border-color:var(--line)}.btn.danger{color:#ffadb7;border-color:#74404b;background:#28151d}.actions{display:flex;gap:9px;flex-wrap:wrap}.result-empty{border:1px dashed #29465f;border-radius:12px;padding:22px;color:var(--muted);text-align:center}.match{border:1px solid #28475d;background:#0a1a29;border-radius:12px;padding:14px;margin-top:10px}.matchhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.pill{font-size:11px;padding:4px 8px;border-radius:999px;background:#143c4c;color:var(--cyan);white-space:nowrap}.pill.warn{background:#3b2c18;color:var(--warn)}.pill.high{background:#123a2e;color:var(--green)}.match p{margin:7px 0;color:#c2d5e5;font-size:13px}.steps{padding-left:20px;margin:8px 0;color:#d4e4f2}.steps li{padding:4px 0}.callout{padding:12px;border-left:3px solid var(--warn);background:#2b2317;border-radius:8px;color:#ffe0a6;font-size:13px;margin-top:12px}.hidden{display:none!important}.kbitem{border-bottom:1px solid var(--line);padding:13px 0}.kbitem:last-child{border-bottom:0}.kbitem strong{display:block}.kbitem span{color:var(--muted);font-size:13px}.report{white-space:pre-wrap;background:#06111c;border:1px solid var(--line);border-radius:12px;padding:15px;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;min-height:150px}.historyrow{display:flex;justify-content:space-between;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}.historyrow small{display:block;color:var(--muted)}.tagline{color:var(--muted);font-size:12px}.notice{background:#11283b;border:1px solid #214b65;border-radius:12px;padding:12px;font-size:13px;color:#c7e7f7;margin-bottom:16px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto;padding:14px;border-right:0;border-bottom:1px solid var(--line)}.brand{margin:0 4px 12px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 12px}.side-note{display:none}.main{padding:18px}.span8,.span4{grid-column:span 12}.top{align-items:flex-start}.status{display:none}}
+@media(max-width:560px){.main{padding:12px}.card{padding:15px}.two{grid-template-columns:1fr}.top h2{font-size:25px}.grid{gap:12px}}
+</style>
 </head>
-
 <body>
-
 <div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">HZ</div><div><h1>H.A.Z.E.</h1><small>E-GATE INTELLIGENCE SYSTEM</small></div></div>
+  <nav class="nav">
+    <button class="active" data-page="diagnose">◈ H.A.Z.E. Diagnostics</button>
+    <button data-page="reports">▤ Report Generator</button>
+    <button data-page="knowledge">⌘ Gate Knowledge</button>
+    <button data-page="history">◷ Incident History</button>
+  </nav>
+  <div class="side-note">H.A.Z.E. · E-GATE INTELLIGENCE · v1.0<br>Decision support only. Verify findings on-site.</div>
+</aside>
+<main class="main">
+<header class="top"><div><div class="eyebrow">Hardware Analysis · Zone-gate Expert</div><h2 id="pageTitle">H.A.Z.E. Command Center</h2><p id="pageDesc">Smart e-Gate troubleshooting, verified field notes, and incident reporting.</p></div><div class="status">● LOCAL MODE</div></header>
 
-    <div class="header">
-
-        <h1>🛂 E-Gate Report Generator</h1>
-
-        <p>Automatic Incident Report Tool</p>
-
+<section id="page-diagnose" class="page">
+<div class="notice">H.A.Z.E. is a local decision-support assistant. Begin with visual inspection and approved checks. Never bypass safety interlocks, change production network settings, or open electrical enclosures without authorization.</div>
+<div class="grid">
+  <div class="card span8">
+    <h3>H.A.Z.E. Symptom Analyzer</h3><p class="sub">Choose the gate and enter what you observed. More specific symptoms improve the ranking.</p>
+    <div class="two">
+      <div class="field"><label for="tech">Technician ID</label><input id="tech" value="A007" autocomplete="off"></div>
+      <div class="field"><label for="gate">Gate ID</label><select id="gate"><option>G01</option><option>G02</option><option>G03</option><option>G04</option><option>G05</option><option>G06</option><option>G07</option><option>G08</option><option>G09</option><option>G10</option><option>G11</option><option>G12</option><option>Other / VDesk</option></select></div>
     </div>
-
-
-    <div class="content">
-
-        <!-- REPORT INFORMATION -->
-
-        <div class="card">
-
-            <h2>📋 Report Information</h2>
-
-            <label for="technician">
-                Technician Name / ID
-            </label>
-
-            <input
-                type="text"
-                id="technician"
-                placeholder="Enter technician name or ID"
-                value="A007"
-            >
-
-
-            <label>
-                Date & Time
-            </label>
-
-            <div
-                id="datetime"
-                class="datetime">
-                Loading...
-            </div>
-
-
-            <label for="area">
-                Area
-            </label>
-
-            <select id="area">
-
-                <option value="">
-                    Select Area
-                </option>
-
-                <option>
-                    T3 Arrival
-                </option>
-
-                <option>
-                    T3 Arrival Phase 1
-                </option>
-
-                <option>
-                    T3 Arrival Phase 2
-                </option>
-
-                <option>
-                    T3 Main Departure
-                </option>
-
-                <option>
-                    T3 OFW Departure
-                </option>
-
-                <option>
-                    T1
-                </option>
-
-                <option>
-                    Other
-                </option>
-
-            </select>
-
-
-            <label for="gate">
-                Gate
-            </label>
-
-            <select id="gate">
-
-                <option value="">
-                    Select Gate
-                </option>
-
-                <option>G01</option>
-                <option>G02</option>
-                <option>G03</option>
-                <option>G04</option>
-                <option>G05</option>
-                <option>G06</option>
-                <option>G07</option>
-                <option>G08</option>
-                <option>G09</option>
-                <option>G10</option>
-                <option>G11</option>
-                <option>G12</option>
-                <option>G13</option>
-                <option>G14</option>
-                <option>G15</option>
-                <option>G16</option>
-                <option>G17</option>
-                <option>G18</option>
-
-            </select>
-
-
-            <label for="issue">
-                Issue
-            </label>
-
-            <select id="issue">
-
-                <option value="">
-                    Select Issue
-                </option>
-
-                <option>
-                    Passport Scanner
-                </option>
-
-                <option>
-                    Sensor Obstruction
-                </option>
-
-                <option>
-                    System Hang
-                </option>
-
-                <option>
-                    Application Crash
-                </option>
-
-                <option>
-                    Defective Sensor
-                </option>
-
-                <option>
-                    Intermittent Network
-                </option>
-
-                <option>
-                    No Power
-                </option>
-
-                <option>
-                    Door Module
-                </option>
-
-            </select>
-
-
-            <label for="details">
-                Additional Details
-            </label>
-
-            <textarea
-                id="details"
-                placeholder="Optional additional information...">
-            </textarea>
-
-
-            <button
-                class="generate-btn"
-                onclick="generateReport()">
-
-                ⚡ Generate Report
-
-            </button>
-
-        </div>
-
-
-        <!-- GENERATED REPORT -->
-
-        <div class="card">
-
-            <h2>📄 Generated Report</h2>
-
-            <div
-                id="report"
-                class="report-box">
-
-                Your generated report will appear here.
-
-            </div>
-
-
-            <button
-                class="copy-btn"
-                onclick="copyReport()">
-
-                📋 Copy Report
-
-            </button>
-
-
-            <div
-                id="successMessage"
-                class="success-message">
-
-                Report copied successfully!
-
-            </div>
-
-        </div>
-
-
-        <div class="footer">
-
-            E-Gate Report Generator
-
-        </div>
-
+    <div class="two">
+      <div class="field"><label for="area">Area</label><select id="area"><option>T3 Arrival</option><option>T3 Arrival Phase 1</option><option>T3 Main Departure</option><option>T3 OFW Departure</option><option>T3 Phase 2</option><option>Other</option></select></div>
+      <div class="field"><label for="component">Component / system</label><select id="component"><option value="auto">Auto-detect from symptoms</option><option>Passport Scanner / Regula</option><option>Footer Sensor</option><option>Before Sensor</option><option>Safety Sensor</option><option>Door Module</option><option>In-module / Out-module</option><option>Primary / Secondary PC</option><option>vDesk / Application</option><option>Network / Internal Switch</option><option>Upstream Service / eTravel</option><option>Power / Indicator</option></select></div>
     </div>
-
+    <div class="field"><label for="quickIssue">Quick issue template (optional)</label><select id="quickIssue"><option value="">Choose a common issue…</option><option value="Passport scanner — passport not scanned properly">Passport Scanner — passport not scanned properly</option><option value="Sensor obstruction — visible paper or object near sensor">Sensor Obstruction</option><option value="System hang — gate application not responding">System Hang</option><option value="App crash — application closed unexpectedly">App Crash</option><option value="Defective sensor — indicator blinking or no response">Defective Sensor</option><option value="Intermittent network — connection drops or component offline">Intermittent Network</option><option value="Door module — door not opening or closing normally">Door Module</option><option value="Power/indicator — component has no power light">Power / Indicator</option><option value="Upstream service — multiple gates affected">Upstream Service / Multiple Gates</option></select></div>
+    <div class="field"><label for="symptoms">Observed symptoms</label><textarea id="symptoms" placeholder="Example: G09 red indicator, footer sensor blinking, gate not opening after passenger error..."></textarea></div>
+    <div class="field"><label for="observed">Checks already performed (optional)</label><textarea id="observed" placeholder="Example: Removed visible paper obstruction; visual check completed; no configuration changes made."></textarea></div>
+    <div class="actions"><button class="btn primary" id="analyze">Analyze symptoms</button><button class="btn secondary" id="clear">Clear</button></div>
+  </div>
+  <div class="card span4">
+    <h3>How H.A.Z.E. analyzes</h3><p class="sub">Transparent, offline rule-based matching. H.A.Z.E. suggests hypotheses; the technician verifies the actual root cause.</p>
+    <div class="kbitem"><strong>01 · Symptom matching</strong><span>Matches words and component context against the offline knowledge base.</span></div>
+    <div class="kbitem"><strong>02 · Ranked possibilities</strong><span>Shows likely causes, supporting clues, and confidence as a match score.</span></div>
+    <div class="kbitem"><strong>03 · Safe next checks</strong><span>Prioritizes non-invasive checks and escalates safety or hardware faults.</span></div>
+    <div class="callout">Match score = symptom keyword overlap, not a failure probability. Always verify findings on site.</div>
+  </div>
+  <div class="card span12"><h3>H.A.Z.E. Diagnostic Results</h3><p class="sub">Possible causes are hypotheses. Confirm each one with authorized checks.</p><div id="results" class="result-empty">Enter symptoms and select “Analyze symptoms” to view ranked possibilities.</div></div>
 </div>
+</section>
 
+<section id="page-reports" class="page hidden">
+<div class="grid">
+<div class="card span8"><h3>H.A.Z.E. Report Generator</h3><p class="sub">Create a copy-ready report using the diagnostic results or enter the details manually.</p>
+<div class="two"><div class="field"><label>Technician ID</label><input id="rtech" value="A007"></div><div class="field"><label>Date & Time</label><input id="rdate" type="datetime-local"></div></div>
+<div class="two"><div class="field"><label>Area</label><input id="rarea" value="T3 Arrival"></div><div class="field"><label>Gate</label><input id="rgate" value="G01"></div></div>
+<div class="field"><label>Issue / symptoms</label><textarea id="rissue" placeholder="Describe the reported issue"></textarea></div>
+<div class="field"><label>Additional Details (optional)</label><textarea id="rdetails" placeholder="Passenger transaction result, indicator status, error message, affected components, or other verified observations"></textarea></div>
+<div class="field"><label>Action Taken</label><textarea id="raction" placeholder="Inspection and checks actually performed"></textarea></div>
+<div class="field"><label>Root Cause</label><textarea id="rcause" placeholder="Confirmed root cause, or state pending verification"></textarea></div>
+<div class="field"><label>Resolution</label><textarea id="rresolution" placeholder="Actual resolution or current status"></textarea></div>
+<div class="field"><label>Recommendation</label><textarea id="rrecommend" placeholder="Recommended follow-up"></textarea></div>
+<div class="actions"><button class="btn primary" id="makeReport">Generate report</button><button class="btn secondary" id="copyReport">Copy report</button><button class="btn secondary" id="saveReport">Save to history</button></div></div>
+<div class="card span4"><h3>Report Preview</h3><p class="sub">Always review and correct the report before submitting.</p><div id="reportPreview" class="report">Your generated report will appear here.</div></div>
+</div>
+</section>
 
+<section id="page-knowledge" class="page hidden"><div class="card"><h3>H.A.Z.E. Gate Knowledge Base</h3><p class="sub">Initial troubleshooting guidance for common e-Gate symptoms. Add verified site procedures as they become available.</p><div id="knowledgeList"></div></div></section>
+<section id="page-history" class="page hidden"><div class="card"><h3>Incident History</h3><p class="sub">Reports are stored only in this browser on this device.</p><div class="actions" style="margin-bottom:14px"><button class="btn secondary" id="exportHistory">Export JSON</button><button class="btn danger" id="clearHistory">Clear history</button></div><div id="historyList">No saved reports yet.</div></div></section>
+</main></div>
 <script>
-
-
-/* ==============================
-   REPORT TEMPLATES
-================================ */
-
-
-const templates = {
-
-
-    "Passport Scanner": {
-
-        action: `Upon arrival at the reported gate, the team conducted an initial inspection of the e-Gate. Software checking and system health verification were performed to identify any possible system-related issues. A visual inspection of the gate components, including the passport scanner and its surrounding area, was also conducted.
-
-The passport scanner was checked and tested accordingly. A test transaction was then conducted using a passenger to verify the proper operation of the passport scanning process and the overall functionality of the e-Gate.`,
-
-        rootCause: `The passenger's passport was not properly scanned by the passport scanner, resulting in an unsuccessful transaction.`,
-
-        resolution: `The passport scanner was checked and tested. A test transaction was conducted to verify its functionality. The e-Gate was found operational after testing.`,
-
-        recommendation: `Continue monitoring the passport scanner and ensure proper passport positioning during the scanning process.`
-
-    },
-
-
-    "Sensor Obstruction": {
-
-        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. A visual inspection of the e-Gate and its components was also performed to identify any possible obstruction affecting the operation of the gate.
-
-The affected sensor area was inspected and a piece of paper was found obstructing the sensor. The obstruction was removed, and the sensor was checked and tested accordingly. A test transaction was then conducted using a passenger to verify the proper operation of the e-Gate.`,
-
-        rootCause: `A piece of paper was found obstructing the sensor, affecting sensor detection and the normal operation of the e-Gate.`,
-
-        resolution: `The piece of paper obstructing the sensor was removed. The affected sensor was checked and tested, followed by a passenger test transaction. The e-Gate was found operational after testing.`,
-
-        recommendation: `Continue monitoring the sensor area and ensure that the sensor remains free from any obstruction.`
-
-    },
-
-
-    "System Hang": {
-
-        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. The system status and application functionality were checked to identify any possible software-related issues.
-
-The e-Gate system was checked and monitored for any signs of system hang. The application was restarted and system functionality was verified. A test transaction was then conducted using a passenger to confirm the proper operation of the e-Gate.`,
-
-        rootCause: `The e-Gate system experienced a temporary system hang, affecting the normal operation of the gate.`,
-
-        resolution: `The affected application was restarted and system functionality was restored. A passenger test transaction was conducted and the e-Gate was found operational.`,
-
-        recommendation: `Continue monitoring the e-Gate system and application performance for any recurrence of the issue.`
-
-    },
-
-
-    "Application Crash": {
-
-        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. The application status was checked to identify any possible software-related issue.
-
-The affected e-Gate application was found not responding and was checked accordingly. The application was closed and restarted to restore normal operation. A test transaction was then conducted using a passenger to verify the proper operation of the e-Gate.`,
-
-        rootCause: `The e-Gate application unexpectedly crashed, causing the application to stop responding and affecting the normal operation of the gate.`,
-
-        resolution: `The affected application was restarted and its functionality was verified. A passenger test transaction was conducted and the e-Gate was found operational.`,
-
-        recommendation: `Continue monitoring the application and system performance for any recurrence of the issue.`
-
-    },
-
-
-    "Defective Sensor": {
-
-        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. A visual inspection of the e-Gate sensors and related components was also performed.
-
-The affected sensor was checked and tested and was found to be defective. The sensor condition and response were verified accordingly. A test transaction was then conducted using a passenger to confirm the operation of the e-Gate.`,
-
-        rootCause: `The affected sensor was found to be defective, resulting in improper sensor detection and affecting the normal operation of the e-Gate.`,
-
-        resolution: `The defective sensor was checked and tested. The sensor was replaced/repaired as necessary and its functionality was verified. A passenger test transaction was conducted to confirm proper operation of the e-Gate.`,
-
-        recommendation: `Continue monitoring the sensor performance and conduct preventive inspection of the affected components.`
-
-    },
-
-
-    "Intermittent Network": {
-
-        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. The network connection and system communication were checked to identify any possible connectivity issue.
-
-The network connection of the e-Gate was checked and monitored. Connectivity testing was performed and the system communication was verified. A test transaction was then conducted using a passenger to confirm the proper operation of the e-Gate.`,
-
-        rootCause: `An intermittent network connection was observed, affecting communication between the e-Gate system and the network.`,
-
-        resolution: `The network connection was checked and restored. System communication was verified and a passenger test transaction was conducted. The e-Gate was found operational after testing.`,
-
-        recommendation: `Continue monitoring the network connection and system communication for any recurrence of intermittent connectivity issues.`
-
-    },
-
-
-    "No Power": {
-
-        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. A visual inspection of the e-Gate power indicators and related components was also performed.
-
-The affected components were checked to identify the source of the power issue. Power connections and related components were inspected and tested accordingly. After the necessary checking, a test transaction was conducted using a passenger to verify the proper operation of the e-Gate.`,
-
-        rootCause: `The affected e-Gate component was found without power, resulting in the failure of the affected component to operate normally.`,
-
-        resolution: `The power connection and affected components were checked and restored as necessary. The system was tested and a passenger test transaction was conducted. The e-Gate was found operational after testing.`,
-
-        recommendation: `Continue monitoring the power supply and related connections to prevent recurrence of the issue.`
-
-    },
-
-
-    "Door Module": {
-
-        action: `Upon arrival at the reported gate, the team conducted an initial inspection and software checking. A visual inspection of the door module and related e-Gate components was also performed.
-
-The affected door module was checked and tested to verify its operation. The door mechanism and related sensors were inspected accordingly. A test transaction was then conducted using a passenger to verify the proper operation of the e-Gate.`,
-
-        rootCause: `The door module experienced an operational issue, affecting the normal opening and closing operation of the e-Gate.`,
-
-        resolution: `The door module and related components were checked and tested. The necessary adjustment/checking was performed and the door operation was verified. A passenger test transaction was conducted and the e-Gate was found operational.`,
-
-        recommendation: `Continue monitoring the door module and related components for any recurrence of the issue.`
-
-    }
-
-};
-
-
-/* ==============================
-   DATE & TIME
-================================ */
-
-
-function updateDateTime() {
-
-    const now = new Date();
-
-    const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-    };
-
-    document.getElementById("datetime").textContent =
-        now.toLocaleString("en-PH", options);
-
+const KB = [
+{id:"scanner",name:"Passport Scanner / Regula",terms:["passport scanner","passport not scanned","not scanned properly","regula","scanner offline","scanner no light","passport read","passport not reading"],causes:["Passport not positioned/read correctly","Scanner window or sensor obstructed","Scanner device, cable, or power issue"],clues:["Passport is not detected or read on the first attempt","Scanner has no indicator light or appears offline"],steps:["Check passport placement and follow the approved passenger instruction.","Visually inspect the scanner window for paper, dirt, or obstruction; do not force or dismantle the unit.","Check approved status indicators and connections only if authorized.","If the scanner remains offline or has no power, record the status and escalate to the authorized support team."],safety:"Do not open the scanner enclosure or swap storage media unless the approved procedure and authorization permit it.",component:"Passport Scanner / Regula"},
+{id:"footer",name:"Footer Sensor",terms:["footer sensor","footer blinking","footer obstruction","foot sensor","bottom sensor"],causes:["Visible obstruction near the footer sensor","Sensor alignment, contamination, or intermittent sensor fault","Sensor wiring or power issue"],clues:["Indicator blinks or changes when the area is disturbed","Gate behavior changes when an obstruction is removed"],steps:["Inspect the footer area for paper or objects and remove only loose, safely accessible obstruction.","Observe the indicator without touching moving parts.","Run the approved health check or passenger test only when the gate is cleared for testing.","If blinking or no response persists, record the indicator state and request authorized sensor inspection."],safety:"Never bypass a safety sensor or reach into moving gate panels.",component:"Footer Sensor"},
+{id:"before",name:"Before Sensor",terms:["before sensor","entry sensor","approach sensor"],causes:["Obstruction or contamination at the approach sensor","Sensor alignment or sensor hardware fault"],clues:["Gate does not detect a person approaching","Sensor indicator is unstable or unresponsive"],steps:["Visually check the sensor area for objects or dirt.","Observe the sensor status from a safe position.","Use the approved health-check procedure and document the result.","Escalate if the sensor remains unstable or unresponsive."],safety:"Do not bypass sensors or test with a person in the moving-door path.",component:"Before Sensor"},
+{id:"safety",name:"Safety Sensor",terms:["safety sensor","door safety","safety fault","sensor fault","door stops"],causes:["Obstruction in the safety sensing zone","Safety sensor alignment or hardware fault"],clues:["Door movement stops unexpectedly","Safety sensor alarm or indicator is reported"],steps:["Keep passengers clear and visually inspect the sensing zone.","Remove only loose, safely accessible obstruction.","Follow the approved reset and test procedure if authorized.","If the fault remains, isolate the gate according to site procedure and escalate."],safety:"Never defeat, bridge, or bypass safety circuits. Keep the gate out of service if safe operation cannot be confirmed.",component:"Safety Sensor"},
+{id:"door",name:"Door Module",terms:["door module","door not opening","door not closing","door stuck","door jam","gate not opening"],causes:["Obstruction or mechanical resistance","Door module or sensor interlock condition","Door module power or control fault"],clues:["Door does not complete its expected movement","Fault occurs after an obstruction or passenger transaction"],steps:["Keep the passenger path clear and observe from outside the moving-door area.","Check for visible obstruction without forcing the door.","Review approved gate status indicators and logs if authorized.","Escalate any repeated movement failure or abnormal sound; follow site isolation procedures."],safety:"Do not force the door or reach into the mechanism. Treat abnormal movement as a safety issue.",component:"Door Module"},
+{id:"app",name:"vDesk / Application / PC",terms:["app crash","application crash","system hang","freeze","frozen","not responding","vdesk","software","task manager","pc"],causes:["Application process is unresponsive","PC resource or operating-system issue","Application/service dependency issue"],clues:["Screen freezes or application stops responding","Issue may clear temporarily after an approved application restart"],steps:["Record the displayed error and time of occurrence.","Check application status and system health using approved tools.","If authorized, close and reopen the application using the documented procedure.","Check approved event or reliability logs; escalate recurring crashes with timestamps."],safety:"Do not terminate critical processes or restart a live gate without operational approval.",component:"vDesk / Application"},
+{id:"network",name:"Network / Internal Switch",terms:["network","offline","connection lost","intermittent network","internal switch","patch panel","wlan cable","ethernet","ping","rto"],causes:["Physical link or cable issue","Switch port or local network path issue","Upstream network/service issue"],clues:["Multiple components or gates are affected","Link indicators or approved connectivity checks show a problem"],steps:["Check whether the issue affects one gate or multiple gates.","Visually inspect accessible cable seating and link indicators without disconnecting live equipment.","Use only approved, read-only connectivity checks from an authorized workstation.","Record timestamps and affected devices, then escalate to the network team."],safety:"Do not scan, reconfigure, unplug, or reset production network equipment without explicit authorization.",component:"Network / Internal Switch"},
+{id:"power",name:"Power / Indicator",terms:["no power","no light","power absent","indicator off","blue light","red light","blinking light","status light"],causes:["Local power supply or connection issue","Indicator reflects another gate fault rather than power loss","Component hardware fault"],clues:["A component has no indicator light or status differs from normal","Multiple components lose power at the same time"],steps:["Record which component has no light and whether nearby components are normal.","Perform visual inspection of accessible external power indicators only.","Do not open electrical compartments; report any smell, heat, damage, or exposed wiring immediately.","Escalate to authorized electrical or maintenance personnel."],safety:"Electrical faults require authorized personnel. Do not touch exposed wiring or internal power supplies.",component:"Power / Indicator"},
+{id:"upstream",name:"Upstream Service / eTravel / BI",terms:["etravel","bi disabled","service downtime","upstream","multiple gates","all gates","phase 1","system unavailable"],causes:["Upstream service outage or planned restriction","Shared application/service dependency issue","Local gate issue if only one station is affected"],clues:["Several gates in the same area are affected at once","Operational advisory or BI/service status indicates a wider incident"],steps:["Confirm scope: one gate, several gates, or an entire area.","Check official operational advisories and authorized service status.","Avoid repeatedly restarting individual gates during a known upstream outage.","Record start time, affected gates, and service status; follow BI/operations instructions."],safety:"Follow operational direction from BI and the responsible service team; do not bypass service restrictions.",component:"Upstream Service / eTravel"}
+];
+
+const $=id=>document.getElementById(id);
+const nowLocal=()=>{const p=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Manila",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).formatToParts(new Date()).reduce((o,x)=>(o[x.type]=x.value,o),{});return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`};
+function formatPhilippineDate(value){if(!value)return "Not specified";const m=String(value).match(/^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2})$/);if(!m)return value+" (Philippine Time)";const months=["January","February","March","April","May","June","July","August","September","October","November","December"];let hour=Number(m[4]),ampm=hour>=12?"PM":"AM";hour=hour%12||12;return `${months[Number(m[2])-1]} ${m[3]}, ${m[1]} at ${String(hour).padStart(2,"0")}:${m[5]} ${ampm} (Philippine Time)`;}
+$("rdate").value=nowLocal();
+let latestAnalysis=null;
+function norm(s){return (s||"").toLowerCase().replace(/[^a-z0-9\s/-]/g," ").replace(/\s+/g," ").trim()}
+function analyze(){
+ const symptoms=$("symptoms").value.trim(), observed=$("observed").value.trim(), selected=$("component").value;
+ if(!symptoms){$("results").className="result-empty";$("results").textContent="Please enter observed symptoms first.";return}
+ const text=norm(symptoms+" "+observed), words=new Set(text.split(" "));
+ let ranked=KB.map(k=>{
+  let hits=[];
+  k.terms.forEach(term=>{const t=norm(term);if(text.includes(t))hits.push(term)});
+  const compSelected=selected!=="auto"&&selected===k.component;
+  let score=hits.reduce((s,t)=>s+Math.min(3,t.split(" ").length),0)+(compSelected?3:0);
+  // Add small context boosts without treating them as proof.
+  if(k.id==="upstream"&&(/\bmultiple\b|\ball gates\b|\bphase\b/.test(text)))score+=2;
+  if(k.id==="network"&&(/\bmultiple\b|\boffline\b|\bconnection\b/.test(text)))score+=1;
+  if(k.id==="safety"&&(/\bsafety\b|\bdoor stops\b/.test(text)))score+=2;
+  return {...k,hits,score,compSelected};
+ }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
+ if(selected!=="auto"){ranked=ranked.map(x=>({...x,score:x.score+(x.compSelected?2:0)})).sort((a,b)=>b.score-a.score)}
+ ranked=ranked.slice(0,4);
+ latestAnalysis={symptoms,observed,selected,ranked,gate:$("gate").value,area:$("area").value,tech:$("tech").value};
+ if(!ranked.length){$("results").className="";$("results").innerHTML='<div class="result-empty">No strong keyword match. Try describing the exact indicator, component, and behavior. You can also browse the Knowledge Base or escalate to the authorized support team.</div>';return}
+ $("results").className="";
+ $("results").innerHTML=ranked.map((k,i)=>`<div class="match"><div class="matchhead"><strong>${i+1}. ${esc(k.name)}</strong><span class="pill ${i===0?'high':''}">${i===0?'Top match':'Related match'} · score ${k.score}</span></div><p><b>Possible causes</b></p><ul class="steps">${k.causes.map(c=>`<li>${esc(c)}</li>`).join("")}</ul><p><b>Matching clues:</b> ${k.hits.length?esc(k.hits.join(", ")):"component selection"}.</p><p><b>Safe next checks</b></p><ol class="steps">${k.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol><div class="callout">${esc(k.safety)}</div><div class="actions" style="margin-top:12px"><button class="btn secondary" data-report="${k.id}">Use in incident report</button></div></div>`).join("");
+ document.querySelectorAll("[data-report]").forEach(b=>b.addEventListener("click",()=>useInReport(ranked.find(k=>k.id===b.dataset.report))));
 }
-
-
-updateDateTime();
-
-setInterval(updateDateTime, 1000);
-
-
-/* ==============================
-   GENERATE REPORT
-================================ */
-
-
-function generateReport() {
-
-    const technician =
-        document.getElementById("technician").value.trim();
-
-    const area =
-        document.getElementById("area").value;
-
-    const gate =
-        document.getElementById("gate").value;
-
-    const issue =
-        document.getElementById("issue").value;
-
-    const details =
-        document.getElementById("details").value.trim();
-
-
-    const reportBox =
-        document.getElementById("report");
-
-
-    if (!technician || !area || !gate || !issue) {
-
-        reportBox.textContent =
-            "Please enter Technician Name/ID and select Area, Gate, and Issue.";
-
-        return;
-
-    }
-
-
-    const template =
-        templates[issue];
-
-
-    if (!template) {
-
-        reportBox.textContent =
-            "No report template available for the selected issue.";
-
-        return;
-
-    }
-
-
-    const reportDate =
-        new Date().toLocaleString(
-            "en-PH",
-            {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit"
-            }
-        );
-
-
-    let report = "";
-
-
-    report += `E-GATE INCIDENT REPORT\n`;
-    report += `======================\n\n`;
-
-    report += `Technician: ${technician}\n`;
-    report += `Date & Time: ${reportDate}\n`;
-    report += `Area: ${area}\n`;
-    report += `Gate: ${gate}\n`;
-    report += `Issue: ${issue}\n\n`;
-
-
-    report += `ACTION TAKEN\n`;
-    report += `------------\n`;
-    report += `${template.action}\n\n`;
-
-
-    report += `ROOT CAUSE\n`;
-    report += `----------\n`;
-    report += `${template.rootCause}\n\n`;
-
-
-    report += `RESOLUTION\n`;
-    report += `----------\n`;
-    report += `${template.resolution}\n\n`;
-
-
-    report += `RECOMMENDATION\n`;
-    report += `--------------\n`;
-    report += `${template.recommendation}\n`;
-
-
-    if (details) {
-
-        report += `\nADDITIONAL DETAILS\n`;
-        report += `------------------\n`;
-        report += `${details}\n`;
-
-    }
-
-
-    reportBox.textContent =
-        report;
-
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function useInReport(k){
+ if(!latestAnalysis)return;
+ $("rtech").value=latestAnalysis.tech||"A007";$("rdate").value=nowLocal();$("rarea").value=latestAnalysis.area;$("rgate").value=latestAnalysis.gate;
+ $("rissue").value=latestAnalysis.symptoms;
+ $("raction").value=latestAnalysis.observed||"Initial visual inspection and symptom assessment performed. Follow approved troubleshooting procedure; record checks actually completed.";
+ $("rcause").value="Possible cause for verification: "+k.causes.join("; ")+". Root cause is not confirmed until verified by authorized checks.";
+ $("rresolution").value="Pending verification / follow-up. Record the actual resolution and test result after checks are completed.";
+ $("rrecommend").value=k.steps[k.steps.length-1];
+ showPage("reports");makeReport();
 }
-
-
-/* ==============================
-   COPY REPORT
-================================ */
-
-
-function copyReport() {
-
-    const report =
-        document.getElementById("report").textContent;
-
-    const successMessage =
-        document.getElementById("successMessage");
-
-
-    if (
-        !report ||
-        report ===
-        "Your generated report will appear here."
-    ) {
-
-        alert("Please generate a report first.");
-
-        return;
-
-    }
-
-
-    navigator.clipboard.writeText(report)
-
-        .then(() => {
-
-            successMessage.style.display =
-                "block";
-
-
-            setTimeout(() => {
-
-                successMessage.style.display =
-                    "none";
-
-            }, 2000);
-
-        })
-
-        .catch(() => {
-
-            alert(
-                "Unable to copy the report automatically. Please copy it manually."
-            );
-
-        });
-
+function makeReport(){
+ const date=formatPhilippineDate($("rdate").value);
+ const report=`E-GATE INCIDENT REPORT\n======================\n\nTechnician: ${$("rtech").value||"Not specified"}\nDate & Time: ${date}\nArea: ${$("rarea").value||"Not specified"}\nGate: ${$("rgate").value||"Not specified"}\nIssue: ${$("rissue").value||"Not specified"}\nAdditional Details: ${$("rdetails")?($("rdetails").value||"None provided"):"None provided"}\n\nACTION TAKEN\n------------\n${$("raction").value||"Not specified"}\n\nROOT CAUSE\n----------\n${$("rcause").value||"Pending verification"}\n\nRESOLUTION\n----------\n${$("rresolution").value||"Pending"}\n\nRECOMMENDATION\n--------------\n${$("rrecommend").value||"Follow the approved troubleshooting procedure and escalate unresolved issues."}`;
+ $("reportPreview").textContent=report;return report;
 }
-
+function getHistory(){try{return JSON.parse(localStorage.getItem("hazeReports")||"[]")}catch{return []}}
+function setHistory(x){localStorage.setItem("hazeReports",JSON.stringify(x))}
+function renderHistory(){const h=getHistory();$("historyList").innerHTML=h.length?h.slice().reverse().map((r,i)=>`<div class="historyrow"><div><strong>${esc(r.gate)} · ${esc(r.issue||"Incident report")}</strong><small>${esc(r.date)} · ${esc(r.area)}</small></div><button class="btn secondary" data-load="${h.length-1-i}">Load</button></div>`).join(""):"No saved reports yet.";document.querySelectorAll("[data-load]").forEach(b=>b.onclick=()=>{const r=getHistory()[Number(b.dataset.load)];if(!r)return;Object.entries(r.fields).forEach(([id,val])=>{if($(id))$(id).value=val});$("reportPreview").textContent=r.report;showPage("reports")})}
+function showPage(page){document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));$("page-"+page).classList.remove("hidden");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));const meta={diagnose:["Smart Troubleshooting","Describe the symptoms. H.A.Z.E. ranks possible causes and safe next checks."],reports:["Incident Reports","Create consistent, copy-ready field reports."],knowledge:["Knowledge Base","Offline guidance for common e-Gate symptoms."],history:["Saved History","Review locally saved reports."]}[page];$("pageTitle").textContent=meta[0];$("pageDesc").textContent=meta[1]}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+$("quickIssue").addEventListener("change",()=>{const v=$("quickIssue").value;if(v){$("symptoms").value=v;const low=v.toLowerCase();if(low.includes("passport"))$("component").value="Passport Scanner / Regula";else if(low.includes("sensor obstruction"))$("component").value="Footer Sensor";else if(low.includes("defective sensor"))$("component").value="Safety Sensor";else if(low.includes("system hang")||low.includes("app crash"))$("component").value="vDesk / Application";else if(low.includes("network"))$("component").value="Network / Internal Switch";else if(low.includes("door module"))$("component").value="Door Module";else if(low.includes("power"))$("component").value="Power / Indicator";else if(low.includes("upstream"))$("component").value="Upstream Service / eTravel";}});
+$("analyze").addEventListener("click",analyze);
+$("clear").addEventListener("click",()=>{$("symptoms").value="";$("observed").value="";$("results").className="result-empty";$("results").textContent="Enter symptoms and select “Analyze symptoms” to view ranked possibilities.";latestAnalysis=null});
+$("makeReport").addEventListener("click",makeReport);
+$("copyReport").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(makeReport());$("copyReport").textContent="Copied";setTimeout(()=>$("copyReport").textContent="Copy report",1300)}catch{$("reportPreview").textContent=makeReport()+"\n\nClipboard access unavailable; select and copy the text manually."}});
+$("saveReport").addEventListener("click",()=>{const report=makeReport(),fields={};["rtech","rdate","rarea","rgate","rissue","rdetails","raction","rcause","rresolution","rrecommend"].forEach(id=>fields[id]=$(id).value);const h=getHistory();h.push({date:$("rdate").value,gate:$("rgate").value,area:$("rarea").value,issue:$("rissue").value,report,fields});setHistory(h);renderHistory();$("saveReport").textContent="Saved";setTimeout(()=>$("saveReport").textContent="Save to history",1200)});
+$("clearHistory").addEventListener("click",()=>{if(confirm("Delete all saved reports from this browser?")){setHistory([]);renderHistory()}});
+$("exportHistory").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(getHistory(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="haze-report-history.json";a.click();URL.revokeObjectURL(url)});
+$("knowledgeList").innerHTML=KB.map(k=>`<div class="kbitem"><strong>${esc(k.name)}</strong><span>${esc(k.causes.join(" · "))}</span><p style="margin:7px 0 0;color:#c2d5e5;font-size:13px">${esc(k.steps[0])}</p></div>`).join("");
+renderHistory();
+if ("serviceWorker" in navigator && (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "https:")) { window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{})); }
 </script>
-
-</body>
-</html>
+</body></html>
