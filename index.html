@@ -139,22 +139,50 @@ const HAZE_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_p3y1v4YhdExbJn6xXXUysQ_USW
   const configured = window.supabase && HAZE_SUPABASE_URL.startsWith("https://") && HAZE_SUPABASE_PUBLISHABLE_KEY !== "PASTE_SUPABASE_PUBLISHABLE_KEY_HERE";
   if (!configured) { message.textContent = "Setup incomplete: add the Supabase publishable (anon) key in this testing branch before sign-in can work."; button.disabled = true; return; }
   const client = window.supabase.createClient(HAZE_SUPABASE_URL, HAZE_SUPABASE_PUBLISHABLE_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
+  let roleCheckInFlight = null;
+  let verifiedAccessToken = null;
   async function showAuthorizedSession(session) {
-    if (!session) { app.classList.add("auth-locked"); gate.style.display = "grid"; return; }
-    const { data, error } = await client.rpc("get_my_haze_role");
-    if (error || !["main_admin", "technician"].includes(data)) {
-      await client.auth.signOut(); app.classList.add("auth-locked"); gate.style.display = "grid";
-      message.textContent = error ? "Could not verify your H.A.Z.E. role. Please contact the Main Admin." : "This account has no authorized H.A.Z.E. role."; return;
+    if (!session || !session.access_token) {
+      verifiedAccessToken = null;
+      app.classList.add("auth-locked"); gate.style.display = "grid";
+      return;
     }
-    gate.style.display = "none"; app.classList.remove("auth-locked");
-    const status = document.querySelector(".top .status"); if (status) status.textContent = data === "main_admin" ? "● MAIN ADMIN" : "● TECHNICIAN";
-    signOut.onclick = async () => { button.disabled = true; await client.auth.signOut(); location.reload(); };
+    const token = session.access_token;
+    if (verifiedAccessToken === token) return;
+    if (roleCheckInFlight && roleCheckInFlight.token === token) return roleCheckInFlight.promise;
+
+    const checkPromise = (async () => {
+      message.textContent = "Checking account role…";
+      // Explicitly send the signed-in user's access token with the RPC request.
+      const { data, error } = await client.rpc("get_my_haze_role", {}, {
+        headers: { Authorization: "Bearer " + token }
+      });
+      if (error || !["main_admin", "technician"].includes(data)) {
+        app.classList.add("auth-locked"); gate.style.display = "grid";
+        // Keep the session for diagnosis; do not trigger refresh-token retries on an RPC error.
+        message.textContent = error
+          ? "Could not verify your H.A.Z.E. role. Please contact the Main Admin."
+          : "This account has no authorized H.A.Z.E. role.";
+        console.error("H.A.Z.E. role verification failed:", error || "No authorized role returned");
+        return;
+      }
+      verifiedAccessToken = token;
+      gate.style.display = "none"; app.classList.remove("auth-locked");
+      const status = document.querySelector(".top .status");
+      if (status) status.textContent = data === "main_admin" ? "● MAIN ADMIN" : "● TECHNICIAN";
+      signOut.onclick = async () => { button.disabled = true; await client.auth.signOut(); location.reload(); };
+    })();
+    roleCheckInFlight = { token, promise: checkPromise };
+    try { await checkPromise; }
+    finally { if (roleCheckInFlight && roleCheckInFlight.promise === checkPromise) roleCheckInFlight = null; }
   }
   form.addEventListener("submit", async (event) => {
     event.preventDefault(); button.disabled = true; message.textContent = "Signing in…";
     const { data, error } = await client.auth.signInWithPassword({ email: email.value.trim(), password: password.value });
     if (error) { message.textContent = "Sign-in failed. Check the email/password or account status."; button.disabled = false; return; }
-    message.textContent = "Checking account role…"; await showAuthorizedSession(data.session); button.disabled = false;
+    message.textContent = "Checking account role…";
+    await showAuthorizedSession(data.session);
+    button.disabled = false;
   });
   client.auth.onAuthStateChange((_event, session) => { setTimeout(() => showAuthorizedSession(session), 0); });
   client.auth.getSession().then(({ data }) => showAuthorizedSession(data.session));
