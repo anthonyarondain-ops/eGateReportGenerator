@@ -24,9 +24,37 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:gri
 }
 @media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto;padding:14px;border-right:0;border-bottom:1px solid var(--line)}.brand{margin:0 4px 12px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 12px}.side-note{display:none}.main{padding:18px}.span8,.span4{grid-column:span 12}.top{align-items:flex-start}.status{display:none}}
 @media(max-width:560px){.main{padding:12px}.card{padding:15px}.two{grid-template-columns:1fr}.top h2{font-size:25px}.grid{gap:12px}}
+
+/* H.A.Z.E. startup smoke intro */
+.haze-intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#102a42 0%,#07111f 58%,#030812 100%);opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s ease}
+.haze-intro.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.haze-intro .smoke{position:absolute;inset:-30%;pointer-events:none;filter:blur(34px);opacity:.42;mix-blend-mode:screen;background:radial-gradient(ellipse at 25% 52%,#3d8da7aa 0%,transparent 28%),radial-gradient(ellipse at 68% 42%,#236ab899 0%,transparent 31%),radial-gradient(ellipse at 48% 70%,#a4e7f044 0%,transparent 26%),radial-gradient(ellipse at 80% 70%,#2b8bb366 0%,transparent 22%);animation:hazeSmokeDrift 5.4s ease-in-out infinite alternate}
+.haze-intro .smoke.s2{opacity:.27;filter:blur(48px);transform:scaleX(-1) rotate(-10deg);animation:hazeSmokeDrift2 6.6s ease-in-out infinite alternate}
+.haze-intro .smoke.s3{opacity:.2;filter:blur(22px);animation:hazeSmokeDrift 7.2s ease-in-out infinite alternate-reverse}
+.haze-intro-content{position:relative;z-index:1;text-align:center;padding:24px;animation:hazeBrandReveal 1.25s ease-out both}
+.haze-intro-mark{width:76px;height:76px;margin:0 auto 18px;border:1px solid #72eaff88;border-radius:23px;display:grid;place-items:center;background:linear-gradient(145deg,#176bbd,#43e5ff);color:#03111d;font-size:27px;font-weight:950;letter-spacing:-3px;box-shadow:0 0 26px #43e5ff66,0 0 80px #278dff33}
+.haze-intro-title{margin:0;color:#effaff;font-size:clamp(34px,7vw,56px);letter-spacing:.24em;font-weight:850;text-shadow:0 0 24px #43e5ff55}
+.haze-intro-subtitle{margin:10px 0 0;color:#9dc5df;font-size:clamp(10px,2.2vw,13px);letter-spacing:.16em;text-transform:uppercase}
+.haze-intro-loading{width:154px;height:2px;margin:25px auto 0;overflow:hidden;background:#19354b;border-radius:4px}
+.haze-intro-loading:after{content:"";display:block;width:45%;height:100%;background:#53e8ff;box-shadow:0 0 12px #43e5ff;animation:hazeLoading 1.5s ease-in-out infinite}
+@keyframes hazeSmokeDrift{from{transform:translate3d(-3%,2%,0) scale(.96) rotate(-5deg)}to{transform:translate3d(4%,-3%,0) scale(1.08) rotate(7deg)}}
+@keyframes hazeSmokeDrift2{from{translate:3% -2%;scale:1.05}to{translate:-4% 4%;scale:.94}}
+@keyframes hazeBrandReveal{from{opacity:0;transform:translateY(12px) scale(.97);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+@keyframes hazeLoading{from{transform:translateX(-110%)}to{transform:translateX(340%)}}
+@media(prefers-reduced-motion:reduce){.haze-intro .smoke,.haze-intro-content,.haze-intro-loading:after{animation:none!important}.haze-intro{transition:none}}
+
 </style>
 </head>
 <body>
+<div class="haze-intro" id="hazeIntro" role="status" aria-label="H.A.Z.E. starting">
+  <div class="smoke"></div><div class="smoke s2"></div><div class="smoke s3"></div>
+  <div class="haze-intro-content">
+    <div class="haze-intro-mark" aria-hidden="true">HZ</div>
+    <h1 class="haze-intro-title">H.A.Z.E.</h1>
+    <p class="haze-intro-subtitle">Hardware Analysis &amp; Zone-gate Expert</p>
+    <div class="haze-intro-loading" aria-hidden="true"></div>
+  </div>
+</div>
 <div class="app">
 <aside class="sidebar">
   <div class="brand"><div class="logo">HZ</div><div><h1>H.A.Z.E.</h1><small>Hardware Analysis &amp; Zone-gate Expert</small></div></div>
@@ -329,6 +357,14 @@ $("resetReport").addEventListener("click",()=>{
 $("historySearch").addEventListener("input",renderHistory);
 $("knowledgeList").innerHTML=KB.map(k=>`<div class="kbitem"><strong>${esc(k.name)}</strong><span>${esc(k.causes.join(" · "))}</span><p style="margin:7px 0 0;color:#c2d5e5;font-size:13px">${esc(k.steps[0])}</p></div>`).join("");
 renderHistory();
+// Show the smoke intro on each fresh app load, then reveal the existing dashboard.
+(function startHazeIntro(){
+ const intro = document.getElementById("hazeIntro");
+ if (!intro) return;
+ const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+ window.setTimeout(() => intro.classList.add("is-leaving"), reducedMotion ? 350 : 2900);
+ window.setTimeout(() => intro.remove(), reducedMotion ? 500 : 3800);
+})();
 if ("serviceWorker" in navigator && (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.protocol === "https:")) { window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{})); }
 </script>
 </body></html>
