@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760">
+<defs>
+ <radialGradient id="a"><stop stop-color="#baf8ff" stop-opacity=".85"/><stop offset="1" stop-color="#48bfff" stop-opacity="0"/></radialGradient>
+ <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effbff"/><stop offset=".3" stop-color="#9bbde8"/><stop offset=".7" stop-color="#314e82"/><stop offset="1" stop-color="#152b53"/></linearGradient>
+ <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0e9"/><stop offset=".65" stop-color="#e7b9b2"/><stop offset="1" stop-color="#b97e83"/></linearGradient>
+ <linearGradient id="suit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff"/><stop offset=".5" stop-color="#b9e9ff"/><stop offset="1" stop-color="#4d8ed1"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="13"/></filter>
+</defs>
+<ellipse cx="300" cy="390" rx="240" ry="320" fill="url(#a)"/>
+<ellipse cx="300" cy="390" rx="170" ry="260" fill="none" stroke="#a6f3ff" stroke-opacity=".65" stroke-width="3"/>
+<path d="M90 720 Q60 500 135 240 Q160 70 300 70 Q450 65 480 250 Q550 510 510 720Z" fill="#7bdfff" opacity=".18" filter="url(#glow)"/>
+<!-- hair behind -->
+<path d="M147 344 Q95 122 230 69 Q353 18 433 116 Q520 210 466 420 L498 602 Q415 667 380 535 L190 550 Q143 645 111 570Z" fill="url(#hair)" stroke="#d9f8ff" stroke-width="4"/>
+<!-- neck -->
+<path d="M252 420 L250 493 Q301 532 350 485 L336 407Z" fill="url(#skin)"/>
+<!-- shoulders / uniform -->
+<path d="M245 480 Q172 485 124 552 Q93 612 77 742 L523 742 Q506 605 465 548 Q416 489 342 478 L300 536Z" fill="url(#suit)" stroke="#d8f8ff" stroke-width="5"/>
+<path d="M255 490 L300 548 L345 489 L374 741 L220 741Z" fill="#f8fdff" opacity=".9"/>
+<path d="M236 511 L300 565 L363 511" fill="none" stroke="#48bfff" stroke-width="8"/>
+<path d="M281 609 L319 609 L339 651 L300 680 L261 651Z" fill="#e9fbff" stroke="#49bfff" stroke-width="4"/>
+<text x="300" y="648" text-anchor="middle" font-family="Arial,sans-serif" font-weight="bold" font-size="24" fill="#167ac2">A</text>
+<!-- face -->
+<path d="M181 221 Q185 117 300 115 Q416 119 420 226 L403 346 Q378 417 302 432 Q222 418 197 345Z" fill="url(#skin)" stroke="#ffe5e4" stroke-width="3"/>
+<!-- fringe -->
+<path d="M169 265 Q143 122 252 89 Q354 53 421 150 Q452 200 421 282 L397 227 Q365 202 339 161 Q294 217 220 222 L203 292Z" fill="url(#hair)" stroke="#d7f8ff" stroke-width="4"/>
+<path d="M215 200 Q260 115 300 105 Q277 171 238 216" fill="#e6f6ff" opacity=".85"/>
+<path d="M330 154 Q385 177 401 226" fill="none" stroke="#d8f7ff" stroke-width="8" stroke-linecap="round"/>
+<!-- eyes -->
+<path d="M218 278 Q248 252 276 279 Q250 307 222 288Z" fill="#fff"/>
+<ellipse cx="249" cy="280" rx="12" ry="16" fill="#5a9bbd"/><ellipse cx="250" cy="281" rx="6" ry="10" fill="#172f54"/><circle cx="254" cy="274" r="4" fill="#fff"/>
+<path d="M324 279 Q353 252 381 278 Q355 307 328 288Z" fill="#fff"/>
+<ellipse cx="353" cy="280" rx="12" ry="16" fill="#5a9bbd"/><ellipse cx="354" cy="281" rx="6" ry="10" fill="#172f54"/><circle cx="358" cy="274" r="4" fill="#fff"/>
+<path d="M213 260 Q248 240 280 261 M320 260 Q354 239 387 259" fill="none" stroke="#536c91" stroke-width="7" stroke-linecap="round"/>
+<!-- nose and smile -->
+<path d="M301 284 Q286 320 302 323" fill="none" stroke="#c68c91" stroke-width="4" stroke-linecap="round"/>
+<path d="M267 352 Q302 378 338 351 Q309 395 267 352Z" fill="#b85d75"/><path d="M275 354 Q302 369 330 354" fill="none" stroke="#fff1f2" stroke-width="4"/>
+<ellipse cx="224" cy="326" rx="22" ry="10" fill="#f79fbb" opacity=".35"/><ellipse cx="376" cy="326" rx="22" ry="10" fill="#f79fbb" opacity=".35"/>
+<!-- headset and glow sparks -->
+<path d="M173 255 Q140 167 207 110 M426 239 Q464 160 407 113" fill="none" stroke="#8af3ff" stroke-width="8" stroke-linecap="round"/>
+<circle cx="174" cy="259" r="14" fill="#d8fbff" stroke="#40cfff" stroke-width="5"/><circle cx="426" cy="259" r="14" fill="#d8fbff" stroke="#40cfff" stroke-width="5"/>
+<g fill="#d8fbff"><circle cx="105" cy="270" r="5"/><circle cx="479" cy="332" r="4"/><circle cx="130" cy="445" r="6"/><circle cx="455" cy="455" r="5"/><circle cx="376" cy="74" r="4"/><circle cx="220" cy="58" r="4"/></g>
+<g fill="none" stroke="#8befff" stroke-width="3" opacity=".8"><path d="M90 360 l9 18 18 9 -18 9 -9 18 -9 -18 -18 -9 18 -9Z"/><path d="M484 470 l7 14 14 7 -14 7 -7 14 -7 -14 -14 -7 14 -7Z"/></g>
+</svg>
