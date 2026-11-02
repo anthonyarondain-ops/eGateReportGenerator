@@ -10,6 +10,29 @@
 :root{--bg:#07111f;--panel:#0d1b2c;--panel2:#10243a;--line:#203a52;--cyan:#43e5ff;--blue:#278dff;--text:#eaf5ff;--muted:#91a9bf;--warn:#ffca75;--red:#ff7b8a;--green:#69edb5}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#102d48 0,transparent 34%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
 button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{padding:24px 16px;border-right:1px solid var(--line);background:#071321eF;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:12px;margin:0 8px 28px}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#1b6dba,#46e9ff);display:grid;place-items:center;color:#04111e;font-weight:900;letter-spacing:-2px;box-shadow:0 0 25px #22c8ff36}.brand h1{font-size:22px;letter-spacing:3px;margin:0}.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.2px;line-height:1.4;max-width:190px}.nav{display:grid;gap:7px}.nav button{border:1px solid transparent;background:transparent;color:var(--muted);padding:12px;border-radius:11px;text-align:left}.nav button.active,.nav button:hover{background:#112a40;border-color:#24516c;color:var(--cyan)}.side-note{position:absolute;bottom:20px;left:18px;right:18px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}.main{padding:28px;max-width:1450px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.eyebrow{color:var(--cyan);text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:700}.top h2{font-size:clamp(24px,3vw,34px);margin:4px 0}.top p{margin:0;color:var(--muted)}.status{border:1px solid #236148;background:#0c2b29;color:var(--green);padding:8px 12px;border-radius:999px;font-size:12px;white-space:nowrap}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}.card{background:linear-gradient(145deg,#0e2032,#0a1726);border:1px solid var(--line);border-radius:17px;padding:20px;min-width:0;box-shadow:0 10px 35px #00000012}.span8{grid-column:span 8}.span4{grid-column:span 4}.span12{grid-column:span 12}.card h3{margin:0 0 5px;font-size:18px}.sub{color:var(--muted);font-size:13px;margin:0 0 16px}.field{display:grid;gap:6px;margin-bottom:13px}.field label{font-size:12px;color:#b8cce0;font-weight:650}.field input,.field select,.field textarea{width:100%;border:1px solid #29465f;border-radius:10px;padding:11px 12px;background:#071522;color:var(--text);outline:none}.field textarea{min-height:95px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #43e5ff16}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:1px solid #2d617c;border-radius:10px;padding:10px 14px;background:#103149;color:var(--cyan);font-weight:700}.btn.primary{background:linear-gradient(90deg,#176db8,#1a9ac2);border-color:#2caed5;color:white}.btn.secondary{background:#0a1a29;color:#c8d9e8;border-color:var(--line)}.btn.danger{color:#ffadb7;border-color:#74404b;background:#28151d}.actions{display:flex;gap:9px;flex-wrap:wrap}.result-empty{border:1px dashed #29465f;border-radius:12px;padding:22px;color:var(--muted);text-align:center}.match{border:1px solid #28475d;background:#0a1a29;border-radius:12px;padding:14px;margin-top:10px}.matchhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.pill{font-size:11px;padding:4px 8px;border-radius:999px;background:#143c4c;color:var(--cyan);white-space:nowrap}.pill.warn{background:#3b2c18;color:var(--warn)}.pill.high{background:#123a2e;color:var(--green)}.match p{margin:7px 0;color:#c2d5e5;font-size:13px}.steps{padding-left:20px;margin:8px 0;color:#d4e4f2}.steps li{padding:4px 0}.callout{padding:12px;border-left:3px solid var(--warn);background:#2b2317;border-radius:8px;color:#ffe0a6;font-size:13px;margin-top:12px}.hidden{display:none!important}.kbitem{border-bottom:1px solid var(--line);padding:13px 0}.kbitem:last-child{border-bottom:0}.procedure-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}.procedure-form{margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}.procedure-form label{display:block;margin:12px 0 5px;color:var(--muted);font-size:13px}.procedure-form input,.procedure-form textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:8px;background:#071321;color:var(--text)}.procedure-form textarea{resize:vertical}.procedure-list{display:grid;gap:12px;margin-top:18px}.empty-procedures{padding:28px 14px;text-align:center;border:1px dashed var(--line);border-radius:10px;color:var(--muted)}.procedure-item{padding:15px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}.procedure-item h4{margin:0 0 10px}.procedure-item pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;color:var(--text);margin:0}.procedure-item .actions{margin-top:12px}.procedure-storage-note{margin-top:18px}.procedure{border:1px solid var(--line);background:#0a1a29;border-radius:12px;padding:14px;margin:10px 0}.procedure summary{cursor:pointer;font-weight:750;color:var(--cyan)}.procedure[open] summary{margin-bottom:8px}.procedure p{margin-bottom:0}.kbitem strong{display:block}.kbitem span{color:var(--muted);font-size:13px}.report{white-space:pre-wrap;background:#06111c;border:1px solid var(--line);border-radius:12px;padding:15px;font:13px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;min-height:150px}.historyrow{display:flex;justify-content:space-between;gap:12px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}.historyrow small{display:block;color:var(--muted)}.tagline{color:var(--muted);font-size:12px}.notice{background:#11283b;border:1px solid #214b65;border-radius:12px;padding:12px;font-size:13px;color:#c7e7f7;margin-bottom:16px}
+
+/* H.A.Z.E. 3D Command Center — visual-only preview */
+@media (hover:hover) and (pointer:fine) {
+  .app{perspective:1400px}
+  .sidebar{transform:translateZ(8px);box-shadow:12px 0 35px #0005}
+  .brand .logo{transition:transform .35s ease,box-shadow .35s ease}
+  .brand:hover .logo{transform:rotateY(18deg) rotateX(8deg) translateZ(8px);box-shadow:0 0 32px #43e5ff66,0 12px 22px #0005}
+  .nav button{transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease}
+  .nav button:hover{transform:translateX(4px) translateZ(8px);box-shadow:0 8px 20px #0004}
+  .card{transform:translateZ(0);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+  .card:hover{transform:translateY(-3px) rotateX(.35deg);border-color:#2f718d;box-shadow:0 18px 42px #0005,0 0 0 1px #43e5ff0b}
+  .status{box-shadow:0 0 18px #69edb522,inset 0 0 12px #69edb50a}
+}
+@media(max-width:900px){
+  .app{perspective:none}
+  .sidebar,.card{transform:none!important}
+  .card:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .brand .logo,.nav button,.card{transition:none!important}
+  .brand:hover .logo,.nav button:hover,.card:hover{transform:none!important}
+}
+
 @media print {
  body{background:#fff!important;color:#111!important}
  .sidebar,.top,.nav,.actions,.notice,.sub,.eyebrow{display:none!important}
@@ -24,6 +47,12 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:gri
 }
 @media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{position:relative;height:auto;padding:14px;border-right:0;border-bottom:1px solid var(--line)}.brand{margin:0 4px 12px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap;padding:9px 12px}.side-note{display:none}.main{padding:18px}.span8,.span4{grid-column:span 12}.top{align-items:flex-start}.status{display:none}}
 @media(max-width:560px){.main{padding:12px}.card{padding:15px}.two{grid-template-columns:1fr}.top h2{font-size:25px}.grid{gap:12px}}
+
+/* H.A.Z.E. dark smoke background — test branch only; boosted visibility for preview */
+body{position:relative;isolation:isolate;background:#030914;color:var(--text)}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(rgba(3,9,20,.34),rgba(3,9,20,.52)),url("./assets/haze-smoke-bg.svg") center center/cover no-repeat;opacity:1}
+.sidebar{background:rgba(5,15,28,.88);backdrop-filter:blur(12px)}
+.card{background:linear-gradient(145deg,rgba(14,32,50,.94),rgba(5,17,30,.92));backdrop-filter:blur(8px)}
 
 /* H.A.Z.E. startup smoke intro */
 .haze-intro{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,#102a42 0%,#07111f 58%,#030812 100%);opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s ease}
@@ -43,16 +72,44 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:gri
 @keyframes hazeLoading{from{transform:translateX(-110%)}to{transform:translateX(340%)}}
 @media(prefers-reduced-motion:reduce){.haze-intro .smoke,.haze-intro-content,.haze-intro-loading:after{animation:none!important}.haze-intro{transition:none}}
 
+
+/* H.A.Z.E. character intro — blue glass command-center theme */
+.haze-intro-v2{background:radial-gradient(ellipse at 51% 50%,#12385a 0%,#07172a 49%,#020712 100%);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+.haze-intro-v2:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#030a17a8,transparent 45%,#030a17a8),radial-gradient(ellipse at 50% 100%,#31d8ff20,transparent 60%)}
+.intro-shell{position:relative;z-index:2;width:min(1440px,100%);padding:clamp(22px,4vw,56px);margin:auto}
+.intro-brandline{display:flex;align-items:center;gap:14px;color:#f0fbff;position:relative;z-index:4}
+.intro-mark{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#fff,#8beaff 48%,#168bff);color:#06304c;font-weight:950;font-size:25px;box-shadow:0 0 28px #40dfff80}
+.intro-brandline strong{display:block;font-size:clamp(25px,3vw,36px);letter-spacing:.19em;text-shadow:0 0 24px #40dfff55}.intro-brandline small{display:block;margin-top:3px;font-size:9px;letter-spacing:.19em;color:#a7d7f4}
+.intro-hero{display:grid;grid-template-columns:minmax(190px,.85fr) minmax(280px,1.2fr) minmax(190px,.8fr);align-items:center;gap:clamp(8px,2vw,28px);min-height:min(65vh,610px);position:relative}
+.intro-copy{position:relative;z-index:3;padding-left:1vw}.intro-kicker{font-size:10px;letter-spacing:.13em;color:#8eeaff;font-weight:750;line-height:1.8}.intro-kicker span,.intro-status b{display:inline-block;width:7px;height:7px;border-radius:50%;background:#67f4c5;box-shadow:0 0 12px #67f4c5;margin-right:7px}
+.intro-hello{font-family:Georgia,serif;font-style:italic;color:#b4f3ff;font-size:clamp(24px,3vw,42px);margin:32px 0 0}.intro-name{font-size:clamp(42px,6vw,76px);line-height:1;margin:0;letter-spacing:.02em;color:#f4fcff;text-shadow:0 0 30px #43cfff66}.intro-name span{font-size:.42em;color:#91efff;vertical-align:top;margin-left:7px}.intro-tagline{font-size:clamp(13px,1.2vw,16px);color:#b7d8ef;line-height:1.8;max-width:340px;margin:22px 0}.intro-status{font-size:9px;letter-spacing:.12em;color:#9fc4de;border-top:1px solid #67dfff3d;padding-top:15px}.intro-status span{padding:0 6px;color:#4b91b5}
+.intro-character-wrap{height:clamp(370px,59vh,590px);position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate}.intro-aura{position:absolute;width:115%;height:95%;border-radius:50%;background:radial-gradient(ellipse,#83edff47 0%,#258cff22 38%,transparent 69%);filter:blur(16px);animation:introAura 4s ease-in-out infinite alternate;z-index:-1}.intro-character{height:100%;width:100%;object-fit:contain;filter:drop-shadow(0 0 22px #5bdfff60);animation:introFloat 5s ease-in-out infinite}.intro-orbit{position:absolute;width:94%;height:40%;border:1px solid #9deeff70;border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 18px #40dfff22;z-index:-1}.orbit-two{width:105%;height:28%;transform:rotate(31deg);border-color:#a8dfff48}.intro-character-label{position:absolute;bottom:3%;left:50%;transform:translateX(-50%);white-space:nowrap;padding:8px 15px;border:1px solid #8ceaff55;border-radius:30px;background:#061b31b8;backdrop-filter:blur(10px);color:#e7faff;font-size:10px;letter-spacing:.16em;box-shadow:0 0 25px #43dfff22}.intro-character-label span{color:#7ccbe9;margin-left:7px;font-size:8px}
+.intro-right{display:grid;gap:12px;position:relative;z-index:3}.intro-mini-card{display:flex;align-items:center;gap:10px;padding:14px 12px;border:1px solid #5dcdf64d;border-radius:13px;background:linear-gradient(120deg,#0a2b49c9,#07172dc9);backdrop-filter:blur(12px);box-shadow:inset 0 0 18px #3bcfff08,0 8px 25px #0002}.mini-icon{font-size:23px;color:#8ceaff}.intro-mini-card div{min-width:0;flex:1}.intro-mini-card b{display:block;font-size:10px;letter-spacing:.06em;color:#e2f8ff}.intro-mini-card small{display:block;color:#8dbbd8;font-size:10px;margin-top:4px}.intro-mini-card em{font-size:10px;color:#69edb5;font-style:normal;text-shadow:0 0 10px #69edb5}
+.intro-bottom{display:flex;align-items:center;gap:12px;color:#8bdcf5;font-size:9px;letter-spacing:.2em}.intro-bottom>i{height:1px;width:25px;background:#48bde5;opacity:.7}.intro-loading{height:2px;flex:1;max-width:160px;background:#183a54;overflow:hidden;margin-left:12px}.intro-loading b{display:block;height:100%;width:38%;background:#9af5ff;box-shadow:0 0 12px #4de5ff;animation:hazeLoading 1.5s ease-in-out infinite}.intro-bottom small{font-size:8px;letter-spacing:.12em;color:#719db8}
+.intro-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}.intro-particles i{position:absolute;width:3px;height:3px;border-radius:50%;background:#d9fbff;box-shadow:0 0 12px 3px #43cfff80;animation:introParticle 6s linear infinite}.intro-particles i:nth-child(1){left:12%;top:65%}.intro-particles i:nth-child(2){left:26%;top:25%;animation-delay:-2s}.intro-particles i:nth-child(3){left:78%;top:31%;animation-delay:-4s}.intro-particles i:nth-child(4){left:88%;top:73%;animation-delay:-1s}.intro-particles i:nth-child(5){left:53%;top:14%;animation-delay:-3s}.intro-particles i:nth-child(6){left:39%;top:83%;animation-delay:-5s}.intro-particles i:nth-child(7){left:68%;top:88%;animation-delay:-2.5s}.intro-particles i:nth-child(8){left:7%;top:42%;animation-delay:-3.5s}
+@keyframes introFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}@keyframes introAura{from{opacity:.6;transform:scale(.96)}to{opacity:1;transform:scale(1.06)}}@keyframes introParticle{0%{transform:translateY(35px);opacity:0}20%,75%{opacity:.85}100%{transform:translateY(-110px);opacity:0}}
+@media(max-width:900px){.intro-shell{padding:22px}.intro-hero{grid-template-columns:.8fr 1.2fr;min-height:auto;padding:25px 0}.intro-character-wrap{grid-column:2;grid-row:1/3;height:430px}.intro-copy{grid-column:1;grid-row:1}.intro-right{grid-column:1;grid-row:2}.intro-mini-card{padding:10px}.intro-mini-card small{font-size:9px}.intro-bottom{flex-wrap:wrap}.intro-bottom small{width:100%;margin-top:6px}}
+@media(max-width:560px){.intro-shell{padding:22px 18px}.intro-brandline strong{font-size:24px}.intro-brandline small{font-size:8px;letter-spacing:.1em}.intro-hero{display:flex;flex-direction:column;align-items:stretch;gap:8px;padding:18px 0}.intro-copy{order:1}.intro-character-wrap{order:2;height:340px;margin-top:-5px}.intro-right{order:3;grid-template-columns:1fr}.intro-hello{margin-top:15px;font-size:26px}.intro-name{font-size:52px}.intro-tagline{margin:12px 0}.intro-status{padding-top:10px}.intro-bottom{gap:7px;letter-spacing:.12em}.intro-bottom>i{width:13px}.intro-loading{max-width:70px;margin-left:3px}.intro-bottom small{font-size:7px}}
+@media(prefers-reduced-motion:reduce){.intro-character,.intro-aura,.intro-particles i,.intro-loading b{animation:none!important}}
+
 </style>
 </head>
 <body>
-<div class="haze-intro" id="hazeIntro" role="status" aria-label="H.A.Z.E. starting">
+<div class="haze-intro haze-intro-v2" id="hazeIntro" role="status" aria-label="H.A.Z.E. starting">
   <div class="smoke"></div><div class="smoke s2"></div><div class="smoke s3"></div>
-  <div class="haze-intro-content">
-    <div class="haze-intro-mark" aria-hidden="true">HZ</div>
-    <h1 class="haze-intro-title">H.A.Z.E.</h1>
-    <p class="haze-intro-subtitle">Hardware Analysis &amp; Zone-gate Expert</p>
-    <div class="haze-intro-loading" aria-hidden="true"></div>
+  <div class="intro-particles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="intro-shell">
+    <div class="intro-brandline"><span class="intro-mark">A</span><span><strong>H.A.Z.E.</strong><small>HARDWARE ANALYSIS &amp; ZONE-GATE EXPERT</small></span></div>
+    <div class="intro-hero">
+      <div class="intro-copy"><div class="intro-kicker"><span></span> E-GATE TECHNICAL SUPPORT · NAIA T3</div>
+        <p class="intro-hello">Hello, I'm</p><h1 class="intro-name">H.A.Z.E.<span>♡</span></h1>
+        <p class="intro-tagline">Your gentle e-Gate assistant.<br>Always here to help you analyze, diagnose, and resolve.</p>
+        <div class="intro-status"><b></b> SYSTEM INITIALIZING <span>·</span> LOCAL MODE</div>
+      </div>
+      <div class="intro-character-wrap"><div class="intro-orbit orbit-one"></div><div class="intro-orbit orbit-two"></div><div class="intro-aura"></div><img class="intro-character" src="./assets/haze-character-preview.svg" alt="H.A.Z.E. friendly assistant character"><div class="intro-character-label">H.A.Z.E. <span>AI ASSISTANT</span></div></div>
+      <div class="intro-right"><div class="intro-mini-card"><span class="mini-icon">◈</span><div><b>GATE MONITORING</b><small>Ready for field diagnostics</small></div><em>●</em></div><div class="intro-mini-card"><span class="mini-icon">⌁</span><div><b>REPORT GENERATOR</b><small>Structured incident reports</small></div><em>●</em></div><div class="intro-mini-card"><span class="mini-icon">✧</span><div><b>KNOWLEDGE BASE</b><small>Guided troubleshooting</small></div><em>●</em></div></div>
+    </div>
+    <div class="intro-bottom"><span>ANALYZE</span><i></i><span>DIAGNOSE</span><i></i><span>RESOLVE</span><div class="intro-loading"><b></b></div><small>PREPARING YOUR COMMAND CENTER</small></div>
   </div>
 </div>
 <div class="app">
